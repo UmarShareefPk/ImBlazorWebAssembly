@@ -221,14 +221,25 @@ field-table tr
 
 .assignee-dropdown {
     max-height: 50vh;
+ 
+    text-align:center;
     overflow-y: auto;
     border: solid 1px silver;
     background-color: white;
 }
-.dd-search-input{
+
+.assign-text{
     font-size:large;
-    padding-left:1vw;
-    color:gray;
+}
+
+.dd-search-input {
+    font-size: large;
+    padding: 1vw;
+    color: lightgray;
+}
+
+.dd-search-input::placeholder {
+color:lightgray;
 }
 
 .dropdown-item{
