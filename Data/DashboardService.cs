@@ -26,6 +26,7 @@ namespace ImBlazorApp.Data
         private readonly IHttpClientFactory clientFactory;
         private readonly ILocalStorageService localStorage;
         private readonly IUserService userService;
+        private string baseUrl = "https://imwebapicore.azurewebsites.net/api";
         public DashboardService(IConfiguration _configuration, IHttpClientFactory _clientFactory, ILocalStorageService _localStorage, IUserService _userService)
         {
             configuration = _configuration;
@@ -38,7 +39,7 @@ namespace ImBlazorApp.Data
         {
             string loggedInUser = await userService.GetLoggedInUserId();
             var request = new HttpRequestMessage(HttpMethod.Get,
-                configuration.GetSection("APIURL").Value + "/Incidents/KPI?userId=" + loggedInUser);
+                baseUrl + "/Incidents/KPI?userId=" + loggedInUser);
 
             request.Headers.Add("Authorization", "Bearer " + token);
 
@@ -60,7 +61,7 @@ namespace ImBlazorApp.Data
         public async Task<KpiData> GetOverallWidget(string token)
         {
             var request = new HttpRequestMessage(HttpMethod.Get,
-                configuration.GetSection("APIURL").Value + "/Incidents/OverallWidget");
+               baseUrl + "/Incidents/OverallWidget");
 
             request.Headers.Add("Authorization", "Bearer " + token);
 
@@ -82,7 +83,7 @@ namespace ImBlazorApp.Data
         public async Task<List<Incident>> GetLast5Incidents(string token)
         {
             var request = new HttpRequestMessage(HttpMethod.Get,
-                configuration.GetSection("APIURL").Value + "/Incidents/Last5Incidents");
+                baseUrl + "/Incidents/Last5Incidents");
 
             request.Headers.Add("Authorization", "Bearer " + token);
 
@@ -104,7 +105,7 @@ namespace ImBlazorApp.Data
         public async Task<List<Incident>> GetOldest5UnresolvedIncidents(string token)
         {
             var request = new HttpRequestMessage(HttpMethod.Get,
-                configuration.GetSection("APIURL").Value + "/Incidents/Oldest5UnresolvedIncidents");
+                baseUrl + "/Incidents/Oldest5UnresolvedIncidents");
 
             request.Headers.Add("Authorization", "Bearer " + token);
 
@@ -126,7 +127,7 @@ namespace ImBlazorApp.Data
         public async Task<object> GetMostAssignedToUsers(string token)
         {
             var request = new HttpRequestMessage(HttpMethod.Get,
-                configuration.GetSection("APIURL").Value + "/Incidents/MostAssignedToUsersIncidents");
+                baseUrl + "/Incidents/MostAssignedToUsersIncidents");
 
             request.Headers.Add("Authorization", "Bearer " + token);
 

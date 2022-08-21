@@ -21,6 +21,4 @@ builder.Services.AddScoped<IIncidentService, IncidentService>();
 builder.Services.AddHttpClient();
 builder.Services.AddBlazoredLocalStorage();
 
-//builder.Services.AddScoped<ICommon, Common>();
-
 await builder.Build().RunAsync();

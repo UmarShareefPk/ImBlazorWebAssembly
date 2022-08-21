@@ -1,0 +1,69 @@
+﻿<div class="field-title">
+    <span>Description </span>
+    @*<i class="edit-btn fa fa-pen" @onclick="toggleEdit"></i>*@
+     <i class="material-icons edit-btn" @onclick="toggleEdit">edit</i>
+</div>
+<div class="description-container">
+      <div class="incident-description">
+        <div class="description-text-div">            
+            <p> @description </p>
+        </div>
+        @if (editOn)
+        {
+            <textarea @bind="newDescription" class="line-textbox  "></textarea>
+            <p class="edit-buttons">
+                <i class="fa fa-close" title="Cancel changes" @onclick="cancel"></i>
+                <i class="fa fa-check " title="Save changes" @onclick="update"></i>                                
+            </p>
+        }
+
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string incidentId { get; set; }
+    [Parameter]
+    public string description { get; set; }
+ 
+
+    private bool editOn = false;
+    private string newDescription;
+
+    private void toggleEdit()
+    {
+        editOn = !editOn;
+        if(string.IsNullOrEmpty(newDescription))
+            newDescription = description;
+        // StateHasChanged();
+    }
+
+    private async Task update()
+    {
+        string token = await localStorage.GetItemAsync<string>("token");  
+        string loggedInUser = await UserService.GetLoggedInUserId();
+
+        bool isSuccess = await IncidentService.UpdateIncident(token, new
+        {
+            IncidentId = incidentId,
+            Parameter = "Description",
+            Value = newDescription,
+            UserId = loggedInUser
+        });
+
+        if (isSuccess)
+        {
+            editOn = !editOn;
+            description = newDescription;
+        }
+        //StateHasChanged();
+    }
+
+    private void cancel()
+    {
+        editOn = !editOn;
+       // StateHasChanged();
+    }
+
+
+}
