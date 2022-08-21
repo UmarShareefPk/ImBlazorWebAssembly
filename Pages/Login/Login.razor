@@ -1,0 +1,79 @@
+﻿@page "/"
+@using IM.Models
+@using ImBlazorApp.Data
+@using System.Text.Json
+@using System.Text
+@inject IUserService userService
+@layout LoginLayout
+
+
+<div class="login-page">
+
+    <div class="row">
+        <div class="col col-xl-6 col-lg-6 d-none d-lg-block">
+            <div class="login-logo">
+                <img src="/img/logoBigWhite.png" width="70%" />
+            </div>
+        </div>
+
+        <div class="col col-xl-6  col-lg-6 col-md-12 col-sm-12">
+            <div class="login-container">
+                <div class="d-lg-none text-center m-4">
+                     <img src="/img/logoColored.png" width="50%" />
+                </div>
+                <h4 class="form-group font-weight-bold">Welcome</h4>
+                <br />
+                <h6 class="form-group">Please Login</h6>
+                 <br />
+
+                <div class="form-group" style="">
+                    <label for="username">  <i class="material-icons">person</i> <span>Username</span> </label>
+                       <input type="text" class="form-control" @bind-value="username" id="username" placeholder="Enter Username" />
+                </div>
+                <div class="form-group" style="">
+                    <label for="password">  <i class="material-icons">password</i> <span>Password</span>  </label>
+                    <input type="password" class="form-control" @bind="password" id="password" placeholder="Enter Password" />
+                </div>
+
+                <div class="form-group" style="">
+                    <label class="text-danger"> @errorText </label>
+                </div>
+
+                <div class="form-group" style="">
+                    <button @onclick="Login_click" class="login-btn btn btn-success btn-lg im-btn">
+                          <span>Login</span> <i class="material-icons">login</i>  
+                        </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@code {
+    [Inject]
+    public NavigationManager navigationManager { get; set; }
+
+    private string? username;
+    private string? password;
+    private string errorText = "";
+
+protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        string token = await localStorage.GetItemAsync<string>("token");
+
+        if (token != null)
+          navigationManager.NavigateTo("/Dashboard");
+    }
+
+    private async Task Login_click()
+    {
+        bool isLoginSuccess = await userService.Authenticate(username, password);
+
+        if (isLoginSuccess)
+            navigationManager.NavigateTo("/Dashboard");
+        else
+            errorText = "Invalid username or password.";
+    }
+
+}

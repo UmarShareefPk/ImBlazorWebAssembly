@@ -1,0 +1,67 @@
+/******************************* Shared **********************************/
+
+
+.im-btn {
+    background: rgb(117,32,112);
+    background: linear-gradient(0deg, rgba(117,32,112,1) 0%, rgba(12,0,106,1) 88%);
+    color: white;
+}
+
+.line-textbox {
+    border: none;
+    border-bottom: 1px solid #9e9e9e;
+    color: #34495e;
+    line-height:1;
+}
+.line-textbox:focus {
+    border: none;
+    border-bottom: 1px solid #9e9e9e;
+    color: #34495e;
+    line-height: 1;
+}
+
+.report-title {
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.table-borderless > tbody > tr > td,
+.table-borderless > tbody > tr > th,
+.table-borderless > tfoot > tr > td,
+.table-borderless > tfoot > tr > th,
+.table-borderless > thead > tr > td,
+.table-borderless > thead > tr > th {
+    border: none;
+}
+
+/******* Calender************/
+
+.rz-datepicker-calendar 
+/* Small devices  */
+@media (min-width: 300px) {
+    .table{
+        line-height:1;
+    }
+}
+
+/* (tablets, 768px and up) */
+@media (min-width: 700px) {
+}
+
+/* Large Tablets  */
+@media (min-width: 1000px) {
+    .table {
+        line-height: 2;
+    }
+}
+}
+
+/* Computer */
+@media (min-width: 1500px) {
+    .table {
+        line-height: 2;
+    }
+}
+}
+
+

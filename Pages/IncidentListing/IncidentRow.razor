@@ -1,0 +1,39 @@
+﻿@using IM.Models
+@using ImBlazorApp.Data
+@inject IUserService userService
+
+<tr>
+    <td class="text-nowrap" title="@incident.Title"> 
+            <a href="/IncidentDetails/@incident.Id"> @(incident.Title.Length > 20? incident.Title.Substring(0,20) + "..." : incident.Title) </a>  
+        </td>
+    <td class="text-nowrap text-muted" title="@incident.Description">@(incident.Description.Length > 20? incident.Description.Substring(0,20) + "..." : incident.Description) </td>
+    <td class="text-nowrap text-muted">@assignedTo</td>
+    <td class="text-nowrap text-muted">@createdBy</td>
+    <td class="text-nowrap text-muted">@createdAt</td>
+    <td class="text-nowrap text-muted">@dueDate</td>
+    <td class="text-nowrap">@status</td>
+</tr>
+
+@code {
+    [Parameter]
+    public Incident incident { get; set; }
+    string assignedTo = "";
+    string createdBy = "";
+    string createdAt = "";
+    string dueDate = "";
+    string status = "";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            assignedTo = await userService.GetUserNameById(incident.AssignedTo);
+            createdBy = await userService.GetUserNameById(incident.CreatedBy);
+            createdAt = new(await JS.InvokeAsync<string>("getMoment", incident.CreatedAT));
+            dueDate = new(await JS.InvokeAsync<string>("getMoment", incident.DueDate));
+            status = Common.GetStatusNameByCode(incident.Status);
+            StateHasChanged();
+        }
+    }
+
+}
