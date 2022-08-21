@@ -30,7 +30,7 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    margin-bottom:20px;
+    
 }
 
 .title-text-div{
@@ -234,7 +234,7 @@ field-table tr
 
 .dd-search-input {
     font-size: large;
-    padding: 1vw;
+    padding: 5px 10px;
     color: lightgray;
 }
 

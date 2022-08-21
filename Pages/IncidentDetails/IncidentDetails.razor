@@ -20,16 +20,18 @@
         }
         else
         {
-               <div class="row">
-                <div class="col-xl-12  col-lg-12 col-md-12 col-sm-12">
-                    <div class="incident-createTime ">
-                        Created by <span class="text-primary">Umar Shareef</span> 2 days ago
-                    </div>
-                </div>
-                </div>
-            <div class="row">              
+
+            <div class="row">
                 <div class="col-xl-12  col-lg-12 col-md-12 col-sm-12">
                     <IncidentTitle incidentId="@incidentId" title="@incident.Title"></IncidentTitle>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-12  col-lg-12 col-md-12 col-sm-12">
+                    <div class="incident-createTime ">
+                        Created by <span class="text-primary">@createdBy</span> 
+                        <span title="@incident.CreatedAT.ToString("MMM dd, yyyy h:m")"> @createdTime</span>
+                    </div>
                 </div>
             </div>
              <div class="row">              
@@ -60,6 +62,8 @@
     public string incidentId { get; set; }
 
     private Incident incident;
+    public string createdBy = "";
+    public string createdTime = "";
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -67,6 +71,8 @@
         {
             string token = await localStorage.GetItemAsync<string>("token");     
             incident = await IncidentService.GetIncidentById(token, incidentId);
+            createdTime = new(await JS.InvokeAsync<string>("getMoment", incident.CreatedAT));
+            createdBy = await UserService.GetUserNameById(incident.CreatedBy);
             StateHasChanged();
         }
     }
