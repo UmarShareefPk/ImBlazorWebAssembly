@@ -29,7 +29,7 @@
             <span title="@startTime" class='@(!startDateEditable? "" : "d-none" )' >@startTimeToDisplay</span>
            
             <div class='@(!startDateEditable? "d-none" : "" )'>
-               @* <RadzenDatePicker ShowTime="true" @bind-Value="newStartDate" Change=@startDateChange />*@
+                <RadzenDatePicker ShowTime="true" @bind-Value="newStartDate" Change=@startDateChange />
                 <button class="btn bg-success text-white">Update</button>
             </div>               
         </td>
@@ -43,7 +43,7 @@
             <span title="@dueDate" class='@(!dueDateEditable? "" : "d-none" )'>@dueDateToDisplay</span>
          
             <div class='@(!dueDateEditable? "d-none" : "" )'>
-             @*   <RadzenDatePicker  ShowTime="true" @bind-Value="newDueDate" Change=@dueDateChange />*@
+                <RadzenDatePicker  ShowTime="true" @bind-Value="newDueDate" Change=@dueDateChange />
                 <button class="btn bg-success text-white">Update</button>
             </div>           
         </td>
