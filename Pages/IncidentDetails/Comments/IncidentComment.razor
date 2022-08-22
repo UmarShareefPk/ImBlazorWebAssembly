@@ -4,7 +4,9 @@
     <div class="comment-box">
         <div class="comment-header">
             <div class="comment-source">
-                <span>@username</span> added a comment - 3 days ago
+                <span class="creator">@username</span> 
+                <span class="info-text">added a comment</span> - 
+                <span class="time-stamp" title="@comment.CreateDate" >@createDateToDisplay</span>
             </div>
             <div class="comment-actions">
                @* <i class="fa-solid fa-pen"></i>*@
@@ -44,12 +46,14 @@
     [Parameter]
     public Comment comment { get; set; }
     private string username = "";
+    private string createDateToDisplay = "";
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            username = await UserService.GetUserNameById(comment.UserId);       
+            username = await UserService.GetUserNameById(comment.UserId);
+            createDateToDisplay = new(await JS.InvokeAsync<string>("getMoment", comment.CreateDate));
             StateHasChanged();
         }
     }

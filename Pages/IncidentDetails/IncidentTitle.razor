@@ -1,13 +1,12 @@
 ﻿<div class="title-container">
     <div class="incident-title">
-        <div class="title-text-div">
-            @*<i class="fa fa-pen" ></i>*@
+        <div class="title-text-div">            
                <i class="material-icons" @onclick="toggleEdit">edit</i>
             <span> @title </span>
         </div>
         @if (editOn)
         {
-            <textarea @bind="newTitle" class="line-textbox  "></textarea>
+            <textarea @bind="newTitle" class="line-textbox"></textarea>
             <p class="edit-buttons">
                 <i class="fa fa-close" title="Cancel changes" @onclick="cancel"></i>
                 <i class="fa fa-check " title="Save changes" @onclick="update"></i>                                
@@ -15,10 +14,6 @@
         }
 
     </div>
-
-
-
-   
 
 </div>
 
@@ -36,13 +31,11 @@
     {
         editOn = !editOn;
         if(string.IsNullOrEmpty(newTitle))
-            newTitle = title;
-        // StateHasChanged();
+            newTitle = title;        
     }
 
     private async Task update()
     {
-
         string token = await localStorage.GetItemAsync<string>("token");  
         string loggedInUser = await UserService.GetLoggedInUserId();
 
@@ -59,15 +52,11 @@
             editOn = !editOn;
             title = newTitle;
         }
-
-
-        //StateHasChanged();
     }
 
     private void cancel()
     {
          editOn = !editOn;
-       // StateHasChanged();
     }
 
 

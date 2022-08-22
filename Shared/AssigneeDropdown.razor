@@ -40,17 +40,16 @@
     private string serachText = "";
 
     private void searchTextChanged()
-    {
-      
+    {      
         string fullSearchText = serachText;
         filteredUsers = allUsers.Where(u =>
             u.FirstName.ToLower().StartsWith(fullSearchText.ToLower()) || u.LastName.ToLower().StartsWith(fullSearchText.ToLower())).ToList();
-               
+
     }
 
-    private void assigneeClicked(string id)
+    private async Task assigneeClicked(string id)
     {
-
+        await assigneeChanged.InvokeAsync(id);
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

@@ -159,20 +159,31 @@ field-table tr
 }
 .comment-header{
     display:flex;
-    flex-direction:row;
+    flex-direction:row;    
     justify-content:space-between;
-
 }
+
 .comment-source{
     color:#808080;
 }
-.comment-source span {
+.comment-source .creator {
     color: #007bff;
+    font-size:medium;
+}
+
+.comment-source .info-text {
+    
+    font-size: small;
+}
+
+.comment-source .time-stamp {  
+    font-size: medium;
 }
 
 .comment-actions i{
     margin-left:3px;
     cursor:pointer;
+    font-size:large;
 }
 .comment-actions i.edit {
     color:gray;
@@ -217,12 +228,23 @@ field-table tr
     font-size: medium;
 }
 
-/* assignee drop down*/
+.new-comment{
+    display:flex;
+    flex-direction:column;
+}
+.new-comment .new-comment-actions {        
+    text-align: right;
+    margin: 10px;
+}
+.new-comment .new-comment-actions span{
+    color:dodgerblue;
+}
 
+
+/* assignee drop down*/
 .assignee-dropdown {
     max-height: 50vh;
- 
-    text-align:center;
+    text-align: center;
     overflow-y: auto;
     border: solid 1px silver;
     background-color: white;
