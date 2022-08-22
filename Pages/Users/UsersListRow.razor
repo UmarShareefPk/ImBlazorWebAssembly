@@ -1,5 +1,4 @@
-﻿@using IM.Models
-<tr>   
+﻿<tr>   
     <td class="text-nowrap text-muted">@user.FirstName</td>
     <td class="text-nowrap text-muted">@user.LastName</td>
     <td class="text-nowrap text-muted">@user.Email</td>
@@ -10,15 +9,18 @@
     [Parameter]
     public User user { get; set; }
     string createdAt = "";
-    
+
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            createdAt = new(await JS.InvokeAsync<string>("getMoment", user.CreateDate));
-            StateHasChanged();
         }
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+         createdAt = new(await JS.InvokeAsync<string>("getMoment", user.CreateDate));
     }
 
 }
