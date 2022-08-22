@@ -8,6 +8,8 @@ using Blazored.LocalStorage;
 using System.Linq;
 using System.Text;
 using ImBlazorApp.Models;
+using ImBlazorApp.Helper;
+using System.Net;
 
 namespace ImBlazorApp.Data
 {
@@ -26,13 +28,15 @@ namespace ImBlazorApp.Data
         private readonly IHttpClientFactory clientFactory;
         private readonly ILocalStorageService localStorage;
         private readonly IUserService userService;
+        private readonly ICommon commonService;
         private string baseUrl = "https://imwebapicore.azurewebsites.net/api";
-        public DashboardService(IConfiguration _configuration, IHttpClientFactory _clientFactory, ILocalStorageService _localStorage, IUserService _userService)
+        public DashboardService(IConfiguration _configuration, IHttpClientFactory _clientFactory, ILocalStorageService _localStorage, IUserService _userService, ICommon _commonService)
         {
             configuration = _configuration;
             clientFactory = _clientFactory;
             localStorage = _localStorage;
             userService = _userService;
+            commonService = _commonService;
         }
 
         public async Task<KpiData> GetKpi(string token)
@@ -54,6 +58,11 @@ namespace ImBlazorApp.Data
             }
             else
             {
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    commonService.HandleUnauthorizedRequests("GetKpi");
+                }
+                commonService.HandleFailedRequests("GetKpi", response.StatusCode);
                 return null;
             }
         }
@@ -76,6 +85,11 @@ namespace ImBlazorApp.Data
             }
             else
             {
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    commonService.HandleUnauthorizedRequests("GetOverallWidget");
+                }
+                commonService.HandleFailedRequests("GetOverallWidget", response.StatusCode);
                 return null;
             }
         }
@@ -98,6 +112,11 @@ namespace ImBlazorApp.Data
             }
             else
             {
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    commonService.HandleUnauthorizedRequests("GetLast5Incidents");
+                }
+                commonService.HandleFailedRequests("GetLast5Incidents", response.StatusCode);
                 return null;
             }
         }
@@ -120,6 +139,11 @@ namespace ImBlazorApp.Data
             }
             else
             {
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    commonService.HandleUnauthorizedRequests("GetOldest5UnresolvedIncidents");
+                }
+                commonService.HandleFailedRequests("GetOldest5UnresolvedIncidents", response.StatusCode);
                 return null;
             }
         }
@@ -142,6 +166,11 @@ namespace ImBlazorApp.Data
             }
             else
             {
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    commonService.HandleUnauthorizedRequests("GetMostAssignedToUsers");
+                }
+                commonService.HandleFailedRequests("GetMostAssignedToUsers", response.StatusCode);
                 return null;
             }
         }
