@@ -1,0 +1,49 @@
+﻿@inject INotificationService notificationService
+
+
+<div class="dropdown notifications-dd">
+    <a class="nav-link dropdown-toggle" id="dropdownMenuButtonNotifications"
+       href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="material-icons">notifications</i>
+        @if (unReadCount > 0)
+        {
+            <span class="badge badge-pill">@unReadCount new</span>
+        }
+    </a>
+
+    <div class="dropdown-menu dropdown-menu-right justify-content-center" aria-labelledby="dropdownMenuButtonNotifications">
+        @if (notifications is null)
+        {
+            <p class="loading-p dropdown-item"> Loading...</p>
+        }
+        else
+        {
+            <div class="notification-container">
+                @foreach(IncidentNotification n in notifications)
+                {
+                    <Notification notification="n"></Notification>
+                }   
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    List<IncidentNotification> notifications;
+    int unReadCount = 0;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(firstRender)
+        {
+            string token = await localStorage.GetItemAsync<string>("token");
+            notifications = await notificationService.GetAllNotifications(token);
+            if(notifications is not null)
+            {
+                unReadCount = notifications.Where(n => !n.IsRead).Count();
+            }
+            StateHasChanged();
+        }
+    }
+
+}

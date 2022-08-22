@@ -17,6 +17,7 @@ builder.Services.AddScoped<ICommon, Common>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddScoped<IIncidentService, IncidentService>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
 
 builder.Services.AddHttpClient();
 builder.Services.AddBlazoredLocalStorage();

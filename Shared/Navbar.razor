@@ -1,4 +1,5 @@
-﻿<nav class="navbar sticky-top navbar-expand-lg">
+﻿@using ImBlazorWebAssembly.Shared.Notifications
+<nav class="navbar sticky-top navbar-expand-lg">
     <div class="container">
         <a class="navbar-brand" href="/Dashboard">
             <img src="/img/logo-white.png" height="50px" />
@@ -24,10 +25,7 @@
                         Users</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" @onclick:preventDefault="true">
-                        <i class="material-icons">notifications</i>
-                        <span class="badge badge-pill">5 new</span>
-                    </a>
+                    <Notifications></Notifications>
 
                 </li>
                 <li class="nav-item" @onclick="Logout">
@@ -36,9 +34,7 @@
                     </a>
                 </li>
             </ul>
-            @* <span class="navbar-text">
-            Navbar text with an inline element
-            </span>*@
+         
         </div>
     </div>
 </nav>

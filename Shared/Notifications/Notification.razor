@@ -1,0 +1,38 @@
+﻿
+@if(notification is not null)
+{
+    <div class="notification-div @(notification.IsRead? "read" : "unread")">
+        <div class="notification-text-div">
+            @if (notification.IsRead)
+            {
+                <i class="material-icons">drafts</i>
+            }
+            else
+            {
+                <i class="material-icons">email</i>
+            }
+
+            <span class="notification-text">@notification.NotifyAbout</span>
+
+        </div>
+
+        <span class="timestamp" title="@notification.CreateDate" >@timestamp</span>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public IncidentNotification notification { get; set; }
+
+    string timestamp = "";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(firstRender)
+        {
+           timestamp = new(await JS.InvokeAsync<string>("getMoment", notification.CreateDate));
+            StateHasChanged();
+        }
+    }
+
+}
