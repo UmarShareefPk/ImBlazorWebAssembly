@@ -17,6 +17,7 @@ namespace ImBlazorApp.Data
     {
         Task<List<IncidentNotification>> GetAllNotifications(string token);
         Task<bool> UpdateStatus(string token, string notificationId, string status);
+        Task<bool> UpdateHubId(string token, string hubId);
     }
 
     public class NotificationService : INotificationService
@@ -36,6 +37,30 @@ namespace ImBlazorApp.Data
             userService = _userService;
         }
 
+        public async Task<bool> UpdateHubId(string token, string hubId)
+        {
+            string userId = await userService.GetLoggedInUserId();
+            var request = new HttpRequestMessage(HttpMethod.Post,
+                 baseUrl + "/Users/UpdateHubId");
+            request.Content = new StringContent(JsonSerializer.Serialize(new { HubId = hubId, UserId = userId }), Encoding.UTF8, "application/json");
+            request.Headers.Add("Authorization", "Bearer " + token);
+            var client = clientFactory.CreateClient();
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+              //  using var responseStream = await response.Content.ReadAsStreamAsync();
+               // var userLoginInfo = await JsonSerializer.DeserializeAsync<UserLogin>(responseStream);
+
+
+                return true;
+
+            }
+            else
+                return false;
+           
+        }
         public async Task<List<IncidentNotification>> GetAllNotifications(string token)
         {
             string loggedInUser = await userService.GetLoggedInUserId();

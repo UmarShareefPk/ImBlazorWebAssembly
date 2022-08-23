@@ -1,4 +1,5 @@
-﻿@inject INotificationService notificationService
+﻿@using Microsoft.AspNetCore.SignalR.Client
+@inject INotificationService notificationService
 
 
 <div class="dropdown notifications-dd">
@@ -29,8 +30,14 @@
 </div>
 
 @code {
+    private HubConnection? hubConnection;
     List<IncidentNotification> notifications;
     int unReadCount = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -43,7 +50,28 @@
                 unReadCount = notifications.Where(n => !n.IsRead).Count();
             }
             StateHasChanged();
+            await signalrReceiver();
         }
+    }
+
+    private async Task signalrReceiver()
+    {
+        string token = await localStorage.GetItemAsync<string>("token");  
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl("https://imwebapicore.azurewebsites.net" + "/hubs/notifications")
+            .WithAutomaticReconnect()            
+            .Build();
+
+        hubConnection.On<string>("UpdateNotifications", (incidentId) =>
+        {
+            
+            InvokeAsync(StateHasChanged);
+        });
+
+        await hubConnection.StartAsync();
+
+        await notificationService.UpdateHubId(token, hubConnection.ConnectionId);
+
     }
 
     void updateNotificationStatus(string id)
