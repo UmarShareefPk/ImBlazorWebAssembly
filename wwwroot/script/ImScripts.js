@@ -1,22 +1,30 @@
 ﻿$(document).ready(function () {
     $('.dropdown-toggle').dropdown();
+    //$('body').on("click", ".dropdown-menu", function (e) {
+    //    $(this).parent().is(".open") && e.stopPropagation();
+    //});
+
+    $(".notification-icon").click(function () {
+        console.log("clicked");
+    });
 });
 
+window.clickTest = (e) => {
+    console.log(e);
+    event.stopPropagation();
+    return "yes";
+   // DotNet.invokeMethodAsync('ImBlazorWebAssembly', 'callMeFromJS');
+}
 
 window.getMoment = (date) => {
     console.log("hi from script file");
-    return moment(date).fromNow();
+    return moment(date).fromNow();   
 };
 
 window.drawOverallChart = (data) => {
-    console.log(data);
-   // var s = document.getElementById("overallChart");
-   // console.log(s);
-
-    Highcharts.chart('overallChart', {
+      Highcharts.chart('overallChart', {
         chart: {
-            type: 'pie',
-           
+            type: 'pie',           
         },
         title: {
             text: ''
@@ -40,8 +48,7 @@ window.drawOverallChart = (data) => {
         },
         series: [{
             name: 'Share',
-            data: [
-                //{ name: 'New', y: overallWidgetData.New, color: '#F57C00' },
+            data: [                
                 {
                     name: 'New', y: data.new, color: {
                         linearGradient: [0, 0, 0, 300],
@@ -50,8 +57,7 @@ window.drawOverallChart = (data) => {
                             [1, 'rgba(255,226,0,1)']
                         ]
                     }
-                },
-                //{ name: 'In Progress', y: overallWidgetData.InProgress, color: '#1976D2' },
+                },          
                 {
                     name: 'In Progress', y: data.inProgress, color: {
                         linearGradient: [0, 0, 0, 300],
@@ -70,7 +76,7 @@ window.drawOverallChart = (data) => {
                         ]
                     }
                 },
-                // { name: 'Closed', y: overallWidgetData.Closed, color: '#43A047' },
+          
                 {
                     name: 'Approved', y: data.approved, color: {
                         linearGradient: [0, 0, 0, 300],
@@ -98,17 +104,9 @@ window.drawOverallChart = (data) => {
 }
 
 window.drawMostAssignedToUserChart = (data) => {
-    console.log(data);
-    // var s = document.getElementById("overallChart");
-    // console.log(s);
-
-    data = [
-        // { name: MostAssignedIncidentsData[0].Name, y: parseInt(MostAssignedIncidentsData[0].Count), color:'#B71C1C' },
-        // { name: MostAssignedIncidentsData[1].Name, y: parseInt(MostAssignedIncidentsData[1].Count), color:'#E53935' },
-        // { name: MostAssignedIncidentsData[2].Name, y: parseInt(MostAssignedIncidentsData[2].Count), color:'#EF5350' },
-        // { name: MostAssignedIncidentsData[3].Name, y: parseInt(MostAssignedIncidentsData[3].Count), color:'#E57373' },
-        // { name: MostAssignedIncidentsData[4].Name, y: parseInt(MostAssignedIncidentsData[4].Count), color:'#FFCDD2' }  
-
+  //  console.log(data);
+   
+    data = [       
         {
             name: data[0].Name, y: parseInt(data[0].Count), color: {
                 linearGradient: [0, 0, 0, 300],

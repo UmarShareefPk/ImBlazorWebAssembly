@@ -2,17 +2,18 @@
 @if(notification is not null)
 {
     <div class="notification-div @(notification.IsRead? "read" : "unread")">
-        <div class="notification-text-div">
+        <div class="notification-text-div"  >
             @if (notification.IsRead)
             {
-                <i class="material-icons">drafts</i>
+                <i class="material-icons notification-icon"  @onclick="changeStatus"  title="Mark Unread">drafts</i>
+               
             }
             else
             {
-                <i class="material-icons">email</i>
+                <i class="material-icons notification-icon" @onclick="changeStatus"  title="Mark Read">email</i>
             }
 
-            <span class="notification-text">@notification.NotifyAbout</span>
+            <span class="notification-text" @onclick="openIncident" >@notification.NotifyAbout</span>
 
         </div>
 
@@ -21,18 +22,44 @@
 }
 
 @code {
+    [Inject]
+    public NavigationManager navigationManager { get; set; }
+
     [Parameter]
     public IncidentNotification notification { get; set; }
 
+    [Parameter]
+    public EventCallback<string> notificationStatusChanged { get; set; }
+
     string timestamp = "";
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnParametersSetAsync()
     {
-        if(firstRender)
-        {
-           timestamp = new(await JS.InvokeAsync<string>("getMoment", notification.CreateDate));
-            StateHasChanged();
-        }
+        timestamp = new(await JS.InvokeAsync<string>("getMoment", notification.CreateDate));
+    }
+
+    [JSInvokable]
+    public static async Task callMeFromJS()
+    {
+
+        // await NotificationService.UpdateStatus(token, notification.Id, (!notification.IsRead).ToString());
+    }
+
+    async Task changeStatus()
+    {
+        //var s = await JS.InvokeAsync<string>("clickTest", DotNetObjectReference.Create(this));  
+        string token = await localStorage.GetItemAsync<string>("token");       
+        bool isSuccess =  await NotificationService.UpdateStatus(token, notification.Id, (!notification.IsRead).ToString());
+        if (isSuccess)
+            await notificationStatusChanged.InvokeAsync(notification.Id);
+
+    }
+
+    void openIncident()
+    {
+        if (!notification.IsRead)
+            changeStatus();
+        navigationManager.NavigateTo("/IncidentDetails/" + notification.IncidentId);
     }
 
 }

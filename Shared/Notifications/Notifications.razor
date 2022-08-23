@@ -21,7 +21,7 @@
             <div class="notification-container">
                 @foreach(IncidentNotification n in notifications)
                 {
-                    <Notification notification="n"></Notification>
+                    <Notification notification="n" notificationStatusChanged="updateNotificationStatus"></Notification>
                 }   
             </div>
         }
@@ -45,5 +45,13 @@
             StateHasChanged();
         }
     }
+
+    void updateNotificationStatus(string id)
+    {
+        var notification = notifications.Where(n => n.Id == id).FirstOrDefault();
+        notification.IsRead = !notification.IsRead;
+        StateHasChanged();
+    }
+
 
 }
