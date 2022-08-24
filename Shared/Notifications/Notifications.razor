@@ -1,8 +1,4 @@
-﻿@using Microsoft.AspNetCore.SignalR.Client
-@inject INotificationService notificationService
-
-
-<div class="dropdown notifications-dd">
+﻿<div class="dropdown notifications-dd">
     <a class="nav-link dropdown-toggle" id="dropdownMenuButtonNotifications"
        href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="material-icons">notifications</i>
@@ -30,54 +26,34 @@
 </div>
 
 @code {
-    private HubConnection? hubConnection;
+    
     List<IncidentNotification> notifications;
     int unReadCount = 0;
-
-    protected override async Task OnInitializedAsync()
-    {
-
-    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if(firstRender)
         {
-            string token = await localStorage.GetItemAsync<string>("token");
-            notifications = await notificationService.GetAllNotifications(token);
-            if(notifications is not null)
-            {
-                unReadCount = notifications.Where(n => !n.IsRead).Count();
-            }
-            StateHasChanged();
-            await signalrReceiver();
+            await loadNotifications();         
         }
     }
 
-    private async Task signalrReceiver()
+    public async Task loadNotifications()
     {
-        string token = await localStorage.GetItemAsync<string>("token");  
-        hubConnection = new HubConnectionBuilder()
-            .WithUrl("https://imwebapicore.azurewebsites.net" + "/hubs/notifications")
-            .WithAutomaticReconnect()            
-            .Build();
-
-        hubConnection.On<string>("UpdateNotifications", (incidentId) =>
+        string token = await localStorage.GetItemAsync<string>("token");
+        notifications = await NotificationService.GetAllNotifications(token);
+        if (notifications is not null)
         {
-            
-            InvokeAsync(StateHasChanged);
-        });
-
-        await hubConnection.StartAsync();
-
-        await notificationService.UpdateHubId(token, hubConnection.ConnectionId);
-
+            unReadCount = notifications.Where(n => !n.IsRead).Count();
+        }
+        StateHasChanged();
     }
 
     void updateNotificationStatus(string id)
     {
         var notification = notifications.Where(n => n.Id == id).FirstOrDefault();
         notification.IsRead = !notification.IsRead;
+        unReadCount = notifications.Where(n => !n.IsRead).Count();
         StateHasChanged();
     }
 

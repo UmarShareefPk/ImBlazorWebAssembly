@@ -41,18 +41,15 @@
     [JSInvokable]
     public static async Task callMeFromJS()
     {
-
         // await NotificationService.UpdateStatus(token, notification.Id, (!notification.IsRead).ToString());
     }
 
     async Task changeStatus()
-    {
-        //var s = await JS.InvokeAsync<string>("clickTest", DotNetObjectReference.Create(this));  
+    {     
         string token = await localStorage.GetItemAsync<string>("token");       
         bool isSuccess =  await NotificationService.UpdateStatus(token, notification.Id, (!notification.IsRead).ToString());
         if (isSuccess)
             await notificationStatusChanged.InvokeAsync(notification.Id);
-
     }
 
     void openIncident()

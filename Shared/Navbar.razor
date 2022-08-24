@@ -1,4 +1,6 @@
 ﻿@using ImBlazorWebAssembly.Shared.Notifications
+@using Microsoft.AspNetCore.SignalR.Client
+
 <nav class="navbar sticky-top navbar-expand-lg">
     <div class="container">
         <a class="navbar-brand" href="/Dashboard">
@@ -25,7 +27,7 @@
                         Users</a>
                 </li>
                 <li class="nav-item">
-                    <Notifications></Notifications>
+                    <Notifications @ref="notificationsComponent"></Notifications>
 
                 </li>
                 <li class="nav-item" @onclick="Logout">
@@ -40,13 +42,44 @@
 </nav>
 
 @code {
-     [Inject]
+    [Inject]
     public NavigationManager navigationManager { get; set; }
+    private HubConnection? hubConnection;
+
+    private Notifications.Notifications notificationsComponent;
 
     private async Task Logout()
     {
-         await localStorage.RemoveItemAsync("token");
-         navigationManager.NavigateTo("/"); 
+        await localStorage.RemoveItemAsync("token");
+        navigationManager.NavigateTo("/"); 
+    }
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(firstRender)
+        {
+            await signalrReceiver();
+        } 
+    }
+
+    private async Task signalrReceiver()
+    {
+        string token = await localStorage.GetItemAsync<string>("token");
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl("https://imwebapicore.azurewebsites.net" + "/hubs/notifications")
+            .WithAutomaticReconnect()
+            .Build();
+
+        hubConnection.On<string>("UpdateNotifications", (incidentId) =>
+        {
+            InvokeAsync(notificationsComponent.loadNotifications);
+        });
+
+        await hubConnection.StartAsync();
+
+        await NotificationService.UpdateHubId(token, hubConnection.ConnectionId);
+
     }
 
 }
