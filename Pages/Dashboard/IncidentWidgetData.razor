@@ -1,22 +1,22 @@
-﻿  <div class="incident">
-            <div class="time-status">
-                <span class="timestamp"
-                      title="@incident.CreatedAT">
-                    @createdAt
-                </span>
+﻿<div class="incident">
+    <div class="time-status">
+        <span class="timestamp"
+              title="@incident.CreatedAT">
+            @createdAt
+        </span>
 
-                <span class="status">
-                    @status
-                </span>
-            </div>
+        <span class="status">
+            @status
+        </span>
+    </div>
 
-            <div class="title">
-                <a href="/IncidentDetails/@incident.Id" >
-                    @incident.Title
-                </a>
-            </div>
+    <div class="title">
+        <a href="/IncidentDetails/@incident.Id">
+            @incident.Title
+        </a>
+    </div>
 
-        </div>
+</div>
 
 @code {
     [Parameter]
@@ -28,15 +28,14 @@
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
-        {         
-            
+        {  
         }
     }
 
     protected override async Task OnParametersSetAsync()
     {
-             createdAt = new(await JS.InvokeAsync<string>("getMoment", incident.CreatedAT));
-            status = Common.GetStatusNameByCode(incident.Status);
+        createdAt = new(await JS.InvokeAsync<string>("getMoment", incident.CreatedAT));
+        status = Common.GetStatusNameByCode(incident.Status);
     }
 
 }

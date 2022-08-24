@@ -28,7 +28,6 @@
                 </li>
                 <li class="nav-item">
                     <Notifications @ref="notificationsComponent"></Notifications>
-
                 </li>
                 <li class="nav-item" @onclick="Logout">
                     <a class="nav-link" href="#">
@@ -54,7 +53,6 @@
         navigationManager.NavigateTo("/"); 
     }
 
-
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if(firstRender)
@@ -77,9 +75,7 @@
         });
 
         await hubConnection.StartAsync();
-
         await NotificationService.UpdateHubId(token, hubConnection.ConnectionId);
-
     }
 
 }
