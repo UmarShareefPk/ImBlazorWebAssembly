@@ -3,15 +3,17 @@
     Comments   
 </div>
 
-@if(comments is nuint)
+@if(comments is null)
 {    
 }
 else
 {
-    foreach(Comment c in comments)
-    {
-        <IncidentComment comment="@c"></IncidentComment>
-    }
+    <div class="comments-container">
+        @foreach(Comment c in comments)
+        {
+            <IncidentComment comment="@c"></IncidentComment>
+        }
+    </div>
     <NewComment></NewComment>
 }
 

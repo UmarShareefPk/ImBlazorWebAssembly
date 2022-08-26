@@ -111,17 +111,30 @@
     display:flex;
     flex-direction:column;
 }
+
+.incident-files-toggle{
+    padding-left:15px;
+    padding-top:10px;
+    display:flex;
+    align-items:center;
+    cursor:pointer;
+    font-size:medium;
+    color:darkblue;
+}
+
+.incident-files-toggle i {
+    margin-right:5px;
+}
 .files-container .file-box {
     display: flex;
     justify-content: center;
     font-size: medium;
     line-height: 2;
-       
     border-bottom: dotted 0.5px lightgray;
 }
 
 .files-container .file-box .file-name {
-    min-width: 10vw;
+    min-width: 190px;
     color: gray;
 }
 .files-container .file-box .file-name span {
@@ -156,10 +169,18 @@ field-table tr
 }
 
 /********* Comments ************/
+.comments-container {
+   max-height:40vh;
+   overflow-y:auto;
+   margin-top:15px;
+}
+
 .comment-box{
     display:flex;
     flex-direction:column;
     margin-bottom:10px;
+    border-bottom: 1px dotted black;
+    
 
 }
 .comment-header{
@@ -202,8 +223,8 @@ field-table tr
     text-align:center;
 }
 .comment-body span {
-    width: 100%;
-    text-align: center;
+    /*width: 100%;
+    text-align: center;*/
 }
 
 .comment-box .file-box {
@@ -216,10 +237,25 @@ field-table tr
     border-bottom: dotted 0.5px lightgray;
 }
 
+.comment-files-toggle {
+    padding-left: 15px;
+    padding-top: 10px;
+    display: flex;
+    justify-content:start;
+    align-items: center;
+    cursor: pointer;
+    font-size: medium;
+    color: darkblue;
+}
+
+.comment-files-toggle i {
+    margin-right: 5px;
+}
+
 
 .comment-box .file-box .file-name {  
     color: gray;
-    min-width:12vw;
+    min-width:190px;
 }
 
 .comment-box .file-box .file-name span{
@@ -240,6 +276,7 @@ field-table tr
 }
 
 .new-comment{
+    margin-top:25px;
     display:flex;
     flex-direction:column;
 }

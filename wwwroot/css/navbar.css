@@ -71,19 +71,20 @@
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding: 12px 10px;
+    padding: 18px 10px;
     border-bottom: solid 1px black;
 }
 .notification-div.read {
 }
-.notification-div.unread {
-    background-color:rgba(12,0,106,1);
-}
+    .notification-div.unread {
+        /* background-color:rgba(12,0,106,1); #fafad2*/
+        background-color: lightcyan;
+    }
 
 .notification-div .notification-text-div {
     display: flex;
     align-items: center;
-    max-width: 70%;
+    max-width: 80%;
     min-width: 70%;
 }
 
@@ -95,9 +96,9 @@
    
     color: rgba(12,0,106,1);
 }
-.notification-div.unread i {
-   
-}
+    .notification-div.unread i {
+        color: rgba(12,0,106,1);
+    }
 
 .notification-div span.notification-text{
     cursor:pointer;
@@ -111,14 +112,14 @@
     color: #808080;
 }
 .notification-div.unread span.notification-text {
-    color: white;
-}
+    color: rgba(12,0,106,1);
+ }
 
 .notification-div.read .timestamp {
     color: #808080;
     font-size: small;
 }
-.notification-div.unread .timestamp {
-    color: white;
-    font-size: small;
-}
+    .notification-div.unread .timestamp {
+        color: rgba(12,0,106,1);
+        font-size: small;
+    }

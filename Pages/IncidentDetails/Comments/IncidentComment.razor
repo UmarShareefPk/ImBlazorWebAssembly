@@ -20,7 +20,20 @@
         </span>
         @if(comment.attachments.Count > 0)
             {
-                foreach(var file in comment.attachments)
+                <span class="comment-files-toggle" @onclick="@(() => showFiles = !showFiles)">
+            @if (showFiles)
+            {
+                <i class="material-icons">visibility_off</i>
+                <span>Hide @comment.attachments.Count attachments</span>
+            }
+            else
+            {
+                <i class="material-icons">visibility</i>
+                <span>Show @comment.attachments.Count attachments</span>
+            }
+        </span>
+        <div class="@(showFiles? "" : "d-none")">
+                @foreach(var file in comment.attachments)
                 {
                     <div class="file-box">
                         <div class="file-name">
@@ -34,6 +47,7 @@
                         </div>
             </div>
                 }
+                </div>
             }
         </div>
 
@@ -45,6 +59,7 @@
     [Parameter]
     public Comment comment { get; set; }
     private string username = "";
+     private bool showFiles = false;
     private string createDateToDisplay = "";
 
   protected override async Task OnAfterRenderAsync(bool firstRender)
