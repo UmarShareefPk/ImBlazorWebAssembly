@@ -35,14 +35,15 @@
         <div class="@(showFiles? "" : "d-none")">
                 @foreach(var file in comment.attachments)
                 {
-                    <div class="file-box">
+                        var currentFile = file;
+                        <div class="file-box">
                         <div class="file-name">
                            
                             <span class="text-nowrap" title="@file.FileName">  <i class="material-icons">attachment</i> @(file.FileName.Length >20? file.FileName.Substring(0,20) + "...": file.FileName)</span>
                         </div>
                         <div class="file-actions">
                          
-                            <i title="Download file" class="material-icons download">download</i>
+                            <i title="Download file" @onclick="@((file) => downlodFile(currentFile))" class="material-icons download">download</i>
                             <i title="Delete file" class="material-icons del">delete_forever</i>
                         </div>
             </div>
@@ -75,5 +76,8 @@
          createDateToDisplay = new(await JS.InvokeAsync<string>("getMoment", comment.CreateDate));
     }
     
-
+    private async Task downlodFile(CommentAttachments file)
+    {
+         string r = new(await JS.InvokeAsync<string>("downloadCommentFile", IncidentService.GetBaseUrl(), comment.IncidentId, file ));
+    }
 }

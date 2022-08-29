@@ -18,6 +18,7 @@ namespace ImBlazorApp.Data
         Task<IncidentPages> GetIncidentsWithPage(string token, int pageSize, int pageNumber, string search);
         Task<Incident> GetIncidentById(string token, string incidentId);
         Task<bool> UpdateIncident(string token, object parameters);
+        string GetBaseUrl();
     }
 
     public class IncidentService : IIncidentService
@@ -26,7 +27,7 @@ namespace ImBlazorApp.Data
         private readonly IHttpClientFactory clientFactory;
         private readonly ILocalStorageService localStorage;
         private readonly ICommon commonService;
-        private string baseUrl = "https://imwebapicore.azurewebsites.net/api";
+        string baseUrl = "https://imwebapicore.azurewebsites.net/api";
         public IncidentService(IConfiguration _configuration, IHttpClientFactory _clientFactory, ILocalStorageService _localStorage, ICommon _commonService)
         {
             configuration = _configuration;
@@ -36,6 +37,10 @@ namespace ImBlazorApp.Data
         }
 
         
+        public string GetBaseUrl()
+        {
+            return baseUrl;
+        }
         public async Task<IncidentPages> GetIncidentsWithPage(string token, int pageSize, int pageNumber, string search)
         {
             var request = new HttpRequestMessage(HttpMethod.Get,
@@ -122,6 +127,14 @@ namespace ImBlazorApp.Data
                 commonService.HandleFailedRequests("UpdateIncident", response.StatusCode);
                 return false;
             }
+        }
+
+        public async Task DownloadFile(string type, string incidentId, string commentId, string fileName, string contentType)
+        {
+       // deleteAttachmentUrl: baseUrl + "api/Incidents/DeleteFile?",
+        //  downloadFileUrl: baseUrl + "api/Incidents/DownloadFile?",
+           
+
         }
 
 
