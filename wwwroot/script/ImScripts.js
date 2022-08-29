@@ -200,7 +200,7 @@ window.drawMostAssignedToUserChart = (data) => {
 }
 
 window.downloadIncidentFile = (baseUrl, file) => {
-    console.log(file);
+    //console.log(file);
     window.open(
         baseUrl + "/Incidents/DownloadFile?"
         + "type=incident"

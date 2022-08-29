@@ -18,6 +18,7 @@ namespace ImBlazorApp.Data
         Task<IncidentPages> GetIncidentsWithPage(string token, int pageSize, int pageNumber, string search);
         Task<Incident> GetIncidentById(string token, string incidentId);
         Task<bool> UpdateIncident(string token, object parameters);
+        Task<bool> DeleteFile(string token, string type, string incidentId, string commentId, string fileId, string fileName, string contentType);
         string GetBaseUrl();
     }
 
@@ -27,13 +28,15 @@ namespace ImBlazorApp.Data
         private readonly IHttpClientFactory clientFactory;
         private readonly ILocalStorageService localStorage;
         private readonly ICommon commonService;
+        private readonly IUserService userService;
         string baseUrl = "https://imwebapicore.azurewebsites.net/api";
-        public IncidentService(IConfiguration _configuration, IHttpClientFactory _clientFactory, ILocalStorageService _localStorage, ICommon _commonService)
+        public IncidentService(IConfiguration _configuration, IHttpClientFactory _clientFactory, ILocalStorageService _localStorage, ICommon _commonService, IUserService _userService)
         {
             configuration = _configuration;
             clientFactory = _clientFactory;
             localStorage = _localStorage;
             commonService = _commonService;
+            userService = _userService;
         }
 
         
@@ -129,11 +132,40 @@ namespace ImBlazorApp.Data
             }
         }
 
-        public async Task DownloadFile(string type, string incidentId, string commentId, string fileName, string contentType)
+        public async Task<bool> DeleteFile(string token, string type, string incidentId, string commentId, string fileId, string fileName, string contentType)
         {
-       // deleteAttachmentUrl: baseUrl + "api/Incidents/DeleteFile?",
-        //  downloadFileUrl: baseUrl + "api/Incidents/DownloadFile?",
-           
+            string userId = await userService.GetLoggedInUserId();
+
+            var request = new HttpRequestMessage(HttpMethod.Get,
+                baseUrl + "/Incidents/DeleteFile?"
+                        + "type=" + type
+                        + "&commentId=" + commentId
+                        + "&incidentId=" + incidentId
+                        + "&userId=" + userId
+                        + "&fileId=" + fileId
+                        + "&filename=" + fileName
+                        + "&contentType=" + contentType
+             );
+
+            request.Headers.Add("Authorization", "Bearer " + token);
+
+            var client = clientFactory.CreateClient();
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {                
+                return true;
+            }
+            else
+            {
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    commonService.HandleUnauthorizedRequests("DeleteFile");
+                }
+                commonService.HandleFailedRequests("DeleteFile", response.StatusCode);
+                return false;
+            }
 
         }
 
