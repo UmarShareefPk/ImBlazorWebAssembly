@@ -14,16 +14,25 @@ else
             <IncidentComment comment="@c"></IncidentComment>
         }
     </div>
-    <NewComment></NewComment>
+    <NewComment incidentId="@incidentId" commentAdded="@commentAdded"></NewComment>
 }
 
 @code {
     [Parameter]
     public List<Comment> comments { get; set; }
 
+    [Parameter]
+    public string incidentId { get; set; }
+
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
+    {        
+    }
+
+    void commentAdded(Comment comment)
     {
-        
+        comments.Insert(0, comment);
+        StateHasChanged();
     }
 
 }

@@ -224,3 +224,42 @@ window.downloadCommentFile = (baseUrl, incidentId, file) => {
     );
     return "Ok";
 }
+
+window.addComment = async (baseUrl,commentText, commentFilesId, incidentId, userId) => {
+    console.log(commentText, commentFilesId, incidentId, userId);
+    let files = $("#" + commentFilesId).prop('files');
+    console.log(files);
+
+    if (commentText.trim() === "") {
+        alert("Please add comment first.");
+        return;
+    }
+    const formData = new FormData();
+
+    if (files) {
+        for (let i = 0; i < files.length; i++) {
+            formData.append(
+                "Attachment" + i + 1,
+                files[i],
+                files[i].name
+            );
+        }
+    }
+    formData.append("CommentText", commentText.trim());
+    formData.append("IncidentId", incidentId);
+    formData.append("UserId", userId);
+    
+    let url = baseUrl + "/Incidents/AddComment";
+
+   let res = await fetch(url, {
+        method: 'post',
+        headers: new Headers({ 'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem("token")) }),
+        body: formData,
+    })
+    .then(res => res.json()).then(res => {
+        console.log(res);
+        return res;
+    }).catch(err => console.log(err));
+
+    return res;
+}
