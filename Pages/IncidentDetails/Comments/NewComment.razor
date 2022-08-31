@@ -2,20 +2,24 @@
 @using System.Net.Http.Headers
 @using System.Text.Json
 
-
-
 <div class="new-comment">
     <textarea class="line-textbox" @bind="commentText" placeholder="Type comment">
-</textarea>
+    </textarea>
+    
+    
 @*
 <InputFile id="commentfiles"  OnChange="LoadFiles" multiple></InputFile>*@
-<div>
-    <input type="file" id="newCommentFiles" multiple />
+<div class="file-upload-container">
+    <div class="file-upload-wrapper">
+        <button class="btn"><i class="material-icons">attachment</i></button>
+        <span id="commentFileuploadInfo">Click here to upload files</span>
+    </div>
+    <input type="file" id="newCommentFiles" onchange="fileuploadChanged(this,'commentFileuploadInfo');" multiple />
 </div>
 
 
 <div class="new-comment-actions">
-        <span>Cancel</span>
+        @*<span>Cancel</span>*@
     <button @onclick="SaveComment" class="btn btn-md bg-success text-white">
         Comment
     </button>       
@@ -46,6 +50,7 @@
         {
             var json = ((JsonElement)newComment).GetRawText();
             var comment = JsonSerializer.Deserialize<Comment>(json);
+            commentText = "";
             await commentAdded.InvokeAsync(comment);
         }
 

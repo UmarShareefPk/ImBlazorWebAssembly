@@ -11,7 +11,7 @@
     <td class="text-nowrap text-muted">@createdBy</td>
     <td class="text-nowrap text-muted">@createdAt</td>
     <td class="text-nowrap text-muted">@dueDate</td>
-    <td class="text-nowrap">@status</td>
+    <td class="text-nowrap"><span class="status-badge badge badge-pill @status.Replace(" ", "").ToLower()">@status</span></td>
 </tr>
 
 @code {

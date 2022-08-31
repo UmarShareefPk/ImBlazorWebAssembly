@@ -1,0 +1,72 @@
+﻿<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">New Incident</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+            <tr>
+                <td colspan="1" class="field-tile"> Title</td>
+                <td colspan="6"> <input type="text" class="line-textbox w-100 " /> </td>
+            </tr>
+            <tr>
+                <td colspan="1" class="field-tile"> Assignee</td>
+                <td colspan="6"> <AssigneeDropdown></AssigneeDropdown> </td>
+            </tr>
+            <tr>
+                <td colspan="1" class="field-tile"> Description </td>
+                <td colspan="6"> <input type="text" class="line-textbox w-100 " /> </td>
+            </tr>
+            <tr>
+                <td colspan="1" class="field-tile"> Additional Details</td>               
+                <td colspan="6"> <input type="text" class="line-textbox w-100 " /> </td>
+            </tr>
+            <tr>
+                <td colspan="1" class="field-tile"> Start Time</td>
+                <td colspan="6"> <RadzenDatePicker ShowTime="true" @bind-Value="startTime" Change=@startTimeChange /> </td>
+            </tr>
+            <tr>
+                <td colspan="1" class="field-tile"> Due Date</td>
+                <td colspan="6">  <RadzenDatePicker ShowTime="true" @bind-Value="dueDate" Change=@dueDateChange /></td>
+            </tr>
+            <tr>
+                <td colspan="1" class="field-tile"> Attachments</td>
+                <td colspan="6">
+                    <div class="file-upload-container">
+                        <div class="file-upload-wrapper">
+                            <button class="btn"><i class="material-icons">attachment</i></button>
+                            <span id="incidentFileuploadInfo">Click here to upload files</span>
+                        </div>
+                        <input type="file" id="newIncidentFiles" onchange="fileuploadChanged(this,'incidentFileuploadInfo');" multiple />
+                    </div>
+                </td>
+            </tr>
+
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@code {
+
+
+ private DateTime startTime = DateTime.Now;   
+ private DateTime dueDate = DateTime.Now; 
+ 
+    void startTimeChange(DateTime? value)
+    {
+    }
+    void dueDateChange(DateTime? value)
+    {
+    }
+
+}

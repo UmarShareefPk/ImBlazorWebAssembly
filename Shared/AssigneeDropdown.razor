@@ -65,7 +65,8 @@
 
     protected override async Task OnParametersSetAsync()
     {
-        selectedAssigneeToDisplay = await UserService.GetUserNameById(selectedAssignee);
+        if(selectedAssignee is not null)
+            selectedAssigneeToDisplay = await UserService.GetUserNameById(selectedAssignee);
     }
 
 }

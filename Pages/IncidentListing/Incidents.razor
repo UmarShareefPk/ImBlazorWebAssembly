@@ -1,18 +1,29 @@
 ﻿@page "/Incidents"
 @using IM.Models
+@using ImBlazorWebAssembly.Pages.NewIncident
 
 <div class="container px-8">
     <br />
     <div class="report-title">Incidents</div>
     <br />
-
-    <input type="text" @bind="searchTxt"   class="line-textbox w-25" placeholder="Enter title or description and hit Search" />
-    <button class="btn btn-outline-success search-btn" @onclick="SearchTextChanged"> 
-        <div>
-               <i class="material-icons">search</i>
-               <span> Search </span>
-       </div>
-    </button>
+    <div class="page-actions">
+        <div class="search-div">
+            <input type="text" @bind="searchTxt" class="line-textbox w-50" placeholder="Enter title or description and hit Search" />
+            <button class="btn btn-outline-success search-btn" @onclick="SearchTextChanged">
+                <div>
+                    <i class="material-icons">search</i>
+                    <span> Search </span>
+                </div>
+            </button>
+        </div>
+        <button type="button" class="modal-btn btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+            <i class="material-icons">
+                add
+            </i>
+            Add New
+        </button>
+    </div>
+<NewIncident></NewIncident>
     @*<input type="button"  value="Search"  class="btn btn-outline-success" />*@
     <br />
     <br />

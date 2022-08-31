@@ -34,9 +34,30 @@
     border: none;
 }
 
-/******* Calender************/
+.file-upload-container{
+    padding: 10px 0px;
+    position:relative;    
+}
+.file-upload-wrapper button {
+    background-color: #0f2280;
+    display: inline-block;
+    color: white;
+}
+.file-upload-wrapper span {
+    font-size: medium;
+    color: #808080;
 
-.rz-datepicker-calendar 
+}
+.file-upload-container input {
+    position: absolute;
+    height:100%;
+    top: 30%;
+    left: 8%;
+   
+    opacity:0;
+}
+/******* Calender************/
+.rz-datepicker-calendar
 /* Small devices  */
 @media (min-width: 300px) {
     .table{

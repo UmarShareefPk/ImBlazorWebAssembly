@@ -1,12 +1,11 @@
 ﻿$(document).ready(function () {
-    $('.dropdown-toggle').dropdown();
-    //$('body').on("click", ".dropdown-menu", function (e) {
-    //    $(this).parent().is(".open") && e.stopPropagation();
-    //});
+    $('.dropdown-toggle').dropdown();   
 
     $(".notification-icon").click(function () {
         console.log("clicked");
     });
+
+    
 });
 
 window.clickTest = (e) => {
@@ -14,6 +13,12 @@ window.clickTest = (e) => {
     event.stopPropagation();
     return "yes";
    // DotNet.invokeMethodAsync('ImBlazorWebAssembly', 'callMeFromJS');
+}
+
+window.fileuploadChanged = (source, infoId) => {   
+    let count = $(source).prop('files').length;
+    let info = count > 1 ? count + " files selected" : count + " file selected";
+    $("#" + infoId).html(info);
 }
 
 window.getMoment = (date) => {
@@ -213,7 +218,6 @@ window.downloadIncidentFile = (baseUrl, file) => {
 }
 
 window.downloadCommentFile = (baseUrl, incidentId, file) => {
-    console.log(file);
     window.open(
         baseUrl + "/Incidents/DownloadFile?" +
         "type=comment" +
@@ -226,9 +230,8 @@ window.downloadCommentFile = (baseUrl, incidentId, file) => {
 }
 
 window.addComment = async (baseUrl,commentText, commentFilesId, incidentId, userId) => {
-    console.log(commentText, commentFilesId, incidentId, userId);
-    let files = $("#" + commentFilesId).prop('files');
-    console.log(files);
+  
+    let files = $("#" + commentFilesId).prop('files'); 
 
     if (commentText.trim() === "") {
         alert("Please add comment first.");
@@ -256,8 +259,10 @@ window.addComment = async (baseUrl,commentText, commentFilesId, incidentId, user
         headers: new Headers({ 'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem("token")) }),
         body: formData,
     })
-    .then(res => res.json()).then(res => {
-        console.log(res);
+       .then(res => res.json()).then(res => {     
+           $("#" + commentFilesId).val(null);
+            $("#" + commentFilesId).replaceWith($("#" + commentFilesId).clone(true));
+            $("#commentFileuploadInfo").html("Click here to upload files");
         return res;
     }).catch(err => console.log(err));
 
