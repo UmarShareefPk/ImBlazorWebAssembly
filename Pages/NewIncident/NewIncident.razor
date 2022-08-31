@@ -2,7 +2,11 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">New Incident</h5>
+        <h5 class="modal-title" id="exampleModalCenterTitle">
+         <i class="material-icons">
+                add
+            </i>   <span>New Incident</span>
+         </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -10,31 +14,37 @@
       <div class="modal-body">
         <table class="table">
             <tr>
-                <td colspan="1" class="field-tile"> Title</td>
-                <td colspan="6"> <input type="text" class="line-textbox w-100 " /> </td>
+                <td colspan="1" class="field-tile"> Title <span class="text-danger">*</span></td>
+                <td colspan="6"> <input type="text" @bind="title" placeholder="Type title" maxlength="100" class="line-textbox w-100 shadow-none text-gray " /> </td>
             </tr>
             <tr>
-                <td colspan="1" class="field-tile"> Assignee</td>
-                <td colspan="6"> <AssigneeDropdown></AssigneeDropdown> </td>
+                <td colspan="1" class="field-tile"> Assignee <span class="text-danger">*</span></td>
+                <td colspan="6"> <AssigneeDropdown selectedAssignee="@assigneeId" assigneeChanged="@assigneeHasChanged"></AssigneeDropdown> </td>
             </tr>
             <tr>
-                <td colspan="1" class="field-tile"> Description </td>
-                <td colspan="6"> <input type="text" class="line-textbox w-100 " /> </td>
+                <td colspan="1" class="field-tile"> Description <span class="text-danger">*</span></td>
+                <td colspan="6">
+                    <textarea class="line-textbox w-100" @bind="descryption" oninput="auto_grow(event);"  placeholder="Type descryption">
+                    </textarea>
+                </td>
             </tr>
             <tr>
                 <td colspan="1" class="field-tile"> Additional Details</td>               
-                <td colspan="6"> <input type="text" class="line-textbox w-100 " /> </td>
+                <td colspan="6">
+                    <textarea class="line-textbox w-100" @bind="additionalDetails" oninput="auto_grow(event);"  placeholder="Type additional details">
+                    </textarea>
+                </td>
             </tr>
             <tr>
-                <td colspan="1" class="field-tile"> Start Time</td>
-                <td colspan="6"> <RadzenDatePicker ShowTime="true" @bind-Value="startTime" Change=@startTimeChange /> </td>
+                <td colspan="1" class="field-tile"> Start Time <span class="text-danger">*</span></td>
+                <td colspan="6"> <RadzenDatePicker  ShowTime="true" @bind-Value="startTime" Change=@startTimeChange /> </td>
             </tr>
             <tr>
-                <td colspan="1" class="field-tile"> Due Date</td>
-                <td colspan="6">  <RadzenDatePicker ShowTime="true" @bind-Value="dueDate" Change=@dueDateChange /></td>
+                <td colspan="1" class="field-tile"> Due Date <span class="text-danger">*</span></td>
+                <td colspan="6">  <RadzenDatePicker Min="@DateTime.Now" ShowTime="true" @bind-Value="dueDate" Change=@dueDateChange /></td>
             </tr>
             <tr>
-                <td colspan="1" class="field-tile"> Attachments</td>
+                <td colspan="1" class="field-tile attachment"> Attachments</td>
                 <td colspan="6">
                     <div class="file-upload-container">
                         <div class="file-upload-wrapper">
@@ -45,28 +55,47 @@
                     </div>
                 </td>
             </tr>
+            <tr class="@(showError? "" : "d-none")">
+                <td colspan="7">
+                    <span class="text-danger"> Please fill all required fields</span>
+                </td>
+            </tr>
 
         </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" @onclick="saveIncident" >Save changes</button>
       </div>
     </div>
   </div>
 </div>
 
 @code {
+    private string title = "";
+    private string descryption = "";
+    private string additionalDetails = "";
+    private string assigneeId = "";
+    private DateTime startTime = DateTime.Now;
+    private DateTime dueDate = DateTime.Now;
+    bool showError = false;
 
+    private async Task assigneeHasChanged(string userId)
+    {
+        assigneeId = userId;
+    }
 
- private DateTime startTime = DateTime.Now;   
- private DateTime dueDate = DateTime.Now; 
- 
     void startTimeChange(DateTime? value)
     {
     }
     void dueDateChange(DateTime? value)
     {
+    }
+
+    async Task saveIncident()
+    {
+        if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(assigneeId) || string.IsNullOrEmpty(descryption))
+            showError = true;
     }
 
 }

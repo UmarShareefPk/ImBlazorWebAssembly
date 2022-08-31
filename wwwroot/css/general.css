@@ -15,9 +15,8 @@
 }
 .line-textbox:focus {
     border: none;
-    border-bottom: 1px solid #9e9e9e;
-    color: #34495e;
-    line-height: 1;
+
+    box-shadow: none;
 }
 
 .report-title {
@@ -35,7 +34,7 @@
 }
 
 .file-upload-container{
-    padding: 10px 0px;
+   /* padding: 10px 0px;*/
     position:relative;    
 }
 .file-upload-wrapper button {

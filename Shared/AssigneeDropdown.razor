@@ -33,7 +33,7 @@
     [Parameter]
     public string selectedAssignee { get; set; }
 
-    private string selectedAssigneeToDisplay = "";
+    private string selectedAssigneeToDisplay = "Select assignee";
 
     private List<User> allUsers;
     private List<User> filteredUsers;
@@ -65,7 +65,7 @@
 
     protected override async Task OnParametersSetAsync()
     {
-        if(selectedAssignee is not null)
+        if(!string.IsNullOrEmpty(selectedAssignee))
             selectedAssigneeToDisplay = await UserService.GetUserNameById(selectedAssignee);
     }
 

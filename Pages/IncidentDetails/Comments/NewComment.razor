@@ -3,7 +3,7 @@
 @using System.Text.Json
 
 <div class="new-comment">
-    <textarea class="line-textbox" @bind="commentText" placeholder="Type comment">
+    <textarea class="line-textbox" @bind="commentText" oninput="auto_grow(event);" placeholder="Type comment">
     </textarea>
     
     

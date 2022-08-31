@@ -62,16 +62,16 @@
     margin-left: 20px;
 }
 
-    .incident .title a {
-        font-size: small;
-        padding-left: 5px;
-        color: #1A237E;
-    }
+.incident .title a {
+    font-size: small;
+    padding-left: 5px;
+    color: #1A237E;
+}
 
-    .incident .title:hover {
-        text-decoration: underline;
-        cursor: pointer;
-    }
+.incident .title:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
 
 
 /* Small devices  */

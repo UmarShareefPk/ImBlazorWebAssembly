@@ -83,7 +83,6 @@
 
     private async Task assigneeHasChanged(string userId)
     {
-
         bool success =  await updateIncident("AssignedTo", userId);
         if(success)
         {

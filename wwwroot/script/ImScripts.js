@@ -4,9 +4,14 @@
     $(".notification-icon").click(function () {
         console.log("clicked");
     });
-
-    
 });
+
+window.auto_grow = (event) => {
+    // for textareas
+    let element = event.target;
+    element.style.height = '5px';
+    element.style.height = element.scrollHeight + 'px';
+}
 
 window.clickTest = (e) => {
     console.log(e);

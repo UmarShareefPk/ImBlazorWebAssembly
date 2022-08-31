@@ -17,18 +17,24 @@
 
 .status-badge{
     padding:8px;
+    min-width: 100px;
 }
-.status-badge.new{
-    background-color:#ecc909;
+.status-badge.new {
+    /*  background-color: #ecc909;*/
+    background: rgb(183,28,28);
+    background: linear-gradient(90deg, rgba(245,124,0,1) 40%, rgba(255,226,0,1) 100%);
 }
 .status-badge.inprogress {
-    background-color: #5794df;
+    background: rgb(183,28,28);
+    background: linear-gradient(90deg, rgba(25,118,210,1) 40%, rgba(0,237,255,1) 100%);
 }
 .status-badge.closed {
-    background-color: #0cdb27;
+    bbackground: rgb(183,28,28);
+    background: linear-gradient(90deg, rgba(67,160,71,1) 40%, rgba(0,255,187,1) 100%);
 }
 .status-badge.approved {
-    background-color: #0a7c19;
+    background: rgb(183,28,28);
+    background: linear-gradient(90deg, rgba(27,94,32,1) 40%, rgba(19,255,0,1) 100%);
 }
 
 .status-badge.late {
@@ -39,10 +45,18 @@
     font-size: larger;
     color: #1a14a2;
     font-weight: bold;
+    display:flex;
+    align-items:center;
 }
-.field-tile {    
+.modal-content input.assign-text{
+    color:#756d6d;
+}
+.field-tile {
     font-size: medium;
-    color: #1a14a2;
+    color: #716969;
     font-weight: bold;
     white-space: nowrap;
+}
+.field-tile.attachment{
+    margin-top:10px;
 }

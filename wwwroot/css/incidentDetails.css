@@ -83,7 +83,7 @@
     display: flex;
 }
 .description-text-div p {
-    max-height:10vh;
+    max-height:200px;
     overflow-y:auto;
     width:100%;
 }
@@ -280,7 +280,10 @@ field-table tr
     display:flex;
     flex-direction:column;
 }
-.new-comment .new-comment-actions {        
+.new-comment textarea{
+    margin-bottom:8px;
+}
+.new-comment .new-comment-actions {
     text-align: right;
     margin: 10px;
 }
