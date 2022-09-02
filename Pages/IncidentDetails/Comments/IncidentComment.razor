@@ -10,14 +10,29 @@
             </div>
             <div class="comment-actions">
                @* <i class="fa-solid fa-pen"></i>*@
-                 <i class="material-icons edit">edit</i>
+                 <i class="material-icons edit" @onclick="makeEditable">edit</i>
                 <i class="material-icons del">delete_forever</i>
             </div>
         </div>
     <div class="comment-body">
-        <span class="text-muted">
-            @comment.CommentText
-        </span>
+        <div class="@(editable? "comment-editable": "text-muted")" contenteditable="@(editable? true: false)">
+            @commentText     
+        </div>
+       @* <input type="text" class="editable_text" />*@
+         <div class="comment-edit-btns @(editable? "": "d-none")">
+              <button class="btn bg-warning text-white">
+                    <div>
+                        <i class="material-icons">cancel</i>
+                        <span>Cancel</span>
+                    </div>
+              </button>
+              <button class="btn bg-primary text-white">
+                    <div>
+                        <i class="material-icons">save</i>
+                        <span>Save</span>
+                    </div>
+              </button>               
+         </div>
         @if(comment.attachments.Count > 0)
             {
                 <span class="comment-files-toggle" @onclick="@(() => showFiles = !showFiles)">
@@ -59,14 +74,27 @@
 @code {
     [Parameter]
     public Comment comment { get; set; }
+    public string commentText = "";
     private string username = "";
     private bool showFiles = false;
     private string createDateToDisplay = "";
+    bool editable = false;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
+            commentText = comment.CommentText;
+        }
+    }
+
+    void makeEditable()
+    {
+        editable = !editable;
+        if(!editable)
+        {
+            commentText = comment.CommentText;
+            StateHasChanged();
         }
     }
 

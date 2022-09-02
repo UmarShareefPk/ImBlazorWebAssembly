@@ -3,16 +3,26 @@
 
 .edit-buttons {
     text-align:right;
+    margin-top:5px;
+    color:white;
+}
+
+.edit-buttons button div {
+    display:flex;
+    align-items:center;
+}
+
+.edit-buttons button div i{
+    color:white;
 }
 
 .edit-buttons .save-btn {
-    color: green;
-    font-size: xx-large;
+    background-color: green;
+    
 }
 
 .edit-buttons .cancel-btn {
-    color: orange;
-    font-size: xx-large;
+    background-color: orange;        
 }
 
 .edit-btn {
@@ -83,9 +93,10 @@
     display: flex;
 }
 .description-text-div p {
-    max-height:200px;
-    overflow-y:auto;
-    width:100%;
+    white-space: pre-wrap;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%;
 }
 
 .incident-description {
@@ -96,13 +107,13 @@
     color: #808080;
 }
 
-.incident-description i {
+/*.incident-description i {
     padding-top: 10px;
     margin-right: 5px;
     color: gray;
     font-size: medium;
     cursor: pointer;
-}
+}*/
 
 /********* Files *****/
 
@@ -218,9 +229,37 @@ field-table tr
     color: orangered;
 }
 
-.comment-body{
-    margin: 10px 0px;
+.editable_text {
+    border: 1px solid black;
+    border-radius: 10px;    
+    color: black !important;
+    padding: 0px;
+    font-size: large;
+    height: 100px;
+    text-align: left;
+}
+.comment-editable {
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: #ebebeb;
+    color: black !important;
+    padding: 10px;
+    font-size: larger;
+    height: 100px;
+    text-align: left;
+}
+
+.comment-edit-btns{
+    margin-top:10px;
     text-align:center;
+}
+.comment-edit-btns button div {
+    display:flex;
+    
+}
+.comment-body {
+    margin: 10px 0px;
+    text-align: center;
 }
 .comment-body span {
     /*width: 100%;
@@ -285,7 +324,7 @@ field-table tr
 }
 .new-comment .new-comment-actions {
     text-align: right;
-    margin: 10px;
+    
 }
 .new-comment .new-comment-actions span{
     color:dodgerblue;

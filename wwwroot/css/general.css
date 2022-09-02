@@ -13,10 +13,47 @@
     color: #34495e;
     line-height:1;
 }
-.line-textbox:focus {
-    border: none;
 
+input, input:focus {
+    border-width: 0px;
+    border-bottom: 1px solid black;
+    outline: 0; /* I have also tried outline:none */
+    -webkit-appearance: none;
     box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+textarea, textarea:focus {
+    line-height:1;
+    border-width: 0px;
+    border-bottom:2px solid black;
+    outline: 0; /* I have also tried outline:none */
+    -webkit-appearance: none;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+select, select:focus {
+    border-width: 0px;
+    min-width:30px;
+    text-align:center;
+    border-bottom: 1px solid black;
+    outline: 0; /* I have also tried outline:none */
+    -webkit-appearance: none;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+textarea:focus, input:focus, select:focus {
+    border-bottom: 2px solid blue;
+}
+
+textarea.medium{
+    min-height:100px;
+}
+textarea.small {
+    height: 30px;
 }
 
 .report-title {

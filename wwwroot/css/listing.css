@@ -51,10 +51,16 @@
 .modal-content input.assign-text{
     color:#756d6d;
 }
+.field{
+ 
+    margin-bottom:15px;
+    padding-bottom:5px;
+    border-bottom:1px solid gray;
+}
 .field-tile {
-    font-size: medium;
-    color: #716969;
-    font-weight: bold;
+    font-size: small;
+    color: blue;
+    margin-bottom: 5px;
     white-space: nowrap;
 }
 .field-tile.attachment{

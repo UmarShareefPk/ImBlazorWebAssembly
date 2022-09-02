@@ -3,18 +3,31 @@
     <i class="material-icons edit-btn" @onclick="toggleEdit">edit</i>
 </div>
 <div class="description-container">
-      <div class="incident-description">
-        <div class="description-text-div">
-          
-            <p> @additionalDetails </p>
-        </div>
-        @if (editOn)
+       <div class="incident-description">
+        @if (!editOn)
         {
-            <textarea @bind="newAdditionalDetails" class="line-textbox  "></textarea>
-            <p class="edit-buttons">
-                <i class="material-icons cancel-btn" title="Cancel changes" @onclick="cancel">cancel</i>
-                <i class="material-icons save-btn" title="Save changes" @onclick="update">save</i>
-            </p>
+            <div class="description-text-div">
+
+                <p> @additionalDetails </p>
+            </div>
+        }      
+        else
+        {
+            <textarea @bind="newAdditionalDetails" class="medium"></textarea>
+             <div class="edit-buttons">
+                <button class="btn cancel-btn text-white" @onclick="cancel">
+                    <div>
+                        <i class="material-icons">cancel</i>
+                        <span>Cancel</span>
+                    </div>
+                </button>
+                <button class="btn save-btn text-white" @onclick="update">
+                    <div>
+                        <i class="material-icons">save</i>
+                        <span>Save</span>
+                    </div>
+                </button>
+            </div>   
         }
 
     </div>

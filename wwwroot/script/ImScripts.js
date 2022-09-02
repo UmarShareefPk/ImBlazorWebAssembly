@@ -1,5 +1,8 @@
 ﻿$(document).ready(function () {
     $('.dropdown-toggle').dropdown();   
+    $("nav").find("li").on("click", "a", function () {
+        $('.navbar-collapse.in').collapse('hide');
+    });
 
     $(".notification-icon").click(function () {
         console.log("clicked");
