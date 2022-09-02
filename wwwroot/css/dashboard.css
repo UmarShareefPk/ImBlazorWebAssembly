@@ -1,5 +1,14 @@
 ﻿/**************************** Dashboard *****************************/
 
+.card {
+    background: #ffffff;
+    margin: 7px 0px;
+    padding: 0px;
+    border: 1px solid #e7e7e7;
+    border-radius: 3px;
+    box-shadow: 0 5px 20px rgb(0 0 0 / 10%);
+}
+
 .widget {
     border: 1px solid gray;
     border-radius: 20px;
@@ -11,7 +20,7 @@
     margin: 10px;
 }
 
-    .widget h5 {
+    .card-body h5 {
         /*background: linear-gradient(0deg, rgba(26,35,126,1) 25%, rgba(253,187,45,1) 100%);*/
         /*   -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;*/

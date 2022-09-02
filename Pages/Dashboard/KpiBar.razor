@@ -1,10 +1,14 @@
-﻿<div class="row kpibar">
-    <Kpi ColorClass="new-color" KpiText="New" KpiValue=@newValue ></Kpi>
-    <Kpi ColorClass="inprogress-color" KpiText="In Progress" KpiValue=@inProgressValue ></Kpi>
-    <Kpi ColorClass="closed-color" KpiText="Closed" KpiValue=@closedValue ></Kpi>
-    <Kpi ColorClass="approved-color" KpiText="Approved" KpiValue=@approvedValue ></Kpi>
-    <Kpi ColorClass="late-color" KpiText="Late" KpiValue=@lateValue ></Kpi>
-    <Kpi ColorClass="assignedToMe-color" KpiText="Assigned To Me" KpiValue=@assignedToMeValue ></Kpi>
+﻿<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <Kpi ColorClass="new-color" KpiText="New" KpiValue=@newValue></Kpi>
+            <Kpi ColorClass="inprogress-color" KpiText="In Progress" KpiValue=@inProgressValue></Kpi>
+            <Kpi ColorClass="closed-color" KpiText="Closed" KpiValue=@closedValue></Kpi>
+            <Kpi ColorClass="approved-color" KpiText="Approved" KpiValue=@approvedValue></Kpi>
+            <Kpi ColorClass="late-color" KpiText="Late" KpiValue=@lateValue></Kpi>
+            <Kpi ColorClass="assignedToMe-color" KpiText="Assigned To Me" KpiValue=@assignedToMeValue></Kpi>
+        </div>
+    </div>
 </div>
 @code {
 

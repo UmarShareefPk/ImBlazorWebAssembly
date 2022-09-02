@@ -66,6 +66,7 @@
 
 .incident-createTime {
     font-size: small;
+    background-color:white;
     color: gray;
     text-align:right;
 }
@@ -183,16 +184,18 @@ field-table tr
 .comments-container {
    max-height:40vh;
    overflow-y:auto;
-   margin-top:15px;
+  
 }
 
-.comment-box{
-    display:flex;
-    flex-direction:column;
-    margin-bottom:10px;
-    border-bottom: 1px dotted black;
-    
+.comments-container {
+    margin-top: 10px;
+}
 
+.comment-box {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    border-bottom: 1px dotted black;
 }
 .comment-header{
     display:flex;

@@ -23,7 +23,11 @@
 
             <div class="row">
                 <div class="col-xl-12  col-lg-12 col-md-12 col-sm-12">
-                    <IncidentTitle incidentId="@incidentId" title="@incident.Title"></IncidentTitle>
+                    <div class="card">
+                        <div class="card-body">
+                            <IncidentTitle incidentId="@incidentId" title="@incident.Title"></IncidentTitle>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -34,23 +38,36 @@
                     </div>
                 </div>
             </div>
-             <div class="row">              
+            <div class="row">
                 <div class="col-xl-6  col-lg-6 col-md-12 col-sm-12">
-                    <IncidentDescription incidentId="@incidentId" description="@incident.Description"></IncidentDescription>
-                    <IncidentAdditionalDetails incidentId="@incidentId" additionalDetails="@incident.AdditionalData"></IncidentAdditionalDetails>
-                    <IncidentAttachments attachments="@incident.Attachments"></IncidentAttachments>
+                    <div class="card">
+                        <div class="card-body">
+                            <IncidentDescription incidentId="@incidentId" description="@incident.Description"></IncidentDescription>
+                            <IncidentAdditionalDetails incidentId="@incidentId" additionalDetails="@incident.AdditionalData"></IncidentAdditionalDetails>
+                            <IncidentAttachments attachments="@incident.Attachments"></IncidentAttachments>
+
+                        </div>
+                    </div>
                 </div>
                  <div class="col-xl-6  col-lg-6 col-md-12 col-sm-12">
-                    <IncidentFields incidentId="@incident.Id"
-                            status=@incident.Status assignee=@incident.AssignedTo
-                            starttime=@incident.StartTime duedate=@incident.DueDate>
-                    </IncidentFields>
+                     <div class="card">
+                        <div class="card-body">
+                            <IncidentFields incidentId="@incident.Id"
+                                    status=@incident.Status assignee=@incident.AssignedTo
+                                    starttime=@incident.StartTime duedate=@incident.DueDate>
+                            </IncidentFields>
+                    </div>
+                    </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xl-6  col-lg-6 col-md-12 col-sm-12">
-                    <IncidentComments incidentId="@incidentId" comments="@incident.Comments">
-                    </IncidentComments>
+                    <div class="card">
+                        <div class="card-body">
+                            <IncidentComments incidentId="@incidentId" comments="@incident.Comments">
+                            </IncidentComments>
+                         </div>
+                     </div>
                 </div>
             </div>
         }

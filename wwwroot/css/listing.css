@@ -17,7 +17,9 @@
 
 .status-badge{
     padding:8px;
-    min-width: 100px;
+    min-width: 80px;
+    color:white;
+    border-radius:7px
 }
 .status-badge.new {
     /*  background-color: #ecc909;*/
@@ -55,7 +57,7 @@
  
     margin-bottom:15px;
     padding-bottom:5px;
-    border-bottom:1px solid gray;
+    border-bottom:1px solid #cec5c5;
 }
 .field-tile {
     font-size: small;

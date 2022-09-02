@@ -6,66 +6,73 @@
     <br />
     <div class="report-title">Incidents</div>
     <br />
-    <div class="page-actions">
-        <div class="search-div">
-            <input type="text" @bind="searchTxt" class="line-textbox w-50" placeholder="Enter title or description and hit Search" />
-            <button class="btn btn-outline-success search-btn" @onclick="SearchTextChanged">
-                <div>
-                    <i class="material-icons">search</i>
-                    <span> Search </span>
+    <div class="card">
+        <div class="card-body">
+            <div class="page-actions">
+                <div class="search-div">
+                    <input type="text" @bind="searchTxt" class="line-textbox w-50" placeholder="Enter title or description and hit Search" />
+                    <button class="btn btn-outline-success search-btn" @onclick="SearchTextChanged">
+                        <div>
+                            <i class="material-icons">search</i>
+                            <span> Search </span>
+                        </div>
+                    </button>
                 </div>
-            </button>
+                <button type="button" class="modal-btn btn btn-primary text-nowrap" data-toggle="modal" data-target="#exampleModalCenter">
+                    <i class="material-icons">
+                        add
+                    </i>
+                    Add New
+                </button>
+            </div>
+            <NewIncident></NewIncident>
         </div>
-        <button type="button" class="modal-btn btn btn-primary text-nowrap" data-toggle="modal" data-target="#exampleModalCenter">
-            <i class="material-icons">
-                add
-            </i>
-            Add New
-        </button>
     </div>
-<NewIncident></NewIncident>
-    @*<input type="button"  value="Search"  class="btn btn-outline-success" />*@
-    <br />
-    <br />
 
-<div class="table-responsive">
-    <table class="table">
-        <thead>
-            <tr>
-                <th class="text-nowrap" scope="col">Title</th>
-                <th class="text-nowrap" scope="col">Description</th>
-                <th class="text-nowrap" scope="col">Assigned TO</th>
-                <th class="text-nowrap" scope="col">Created By</th>
-                <th class="text-nowrap" scope="col">Created Date</th>
-                <th class="text-nowrap" scope="col">Due Date</th>
-                <th class="text-nowrap" scope="col">Status</th>
-            </tr>
-        </thead>
-        <tbody>
-                @if (incidents != null)
-                {
-                    @foreach (Incident incident in incidents)
-                    {
-                        <IncidentRow incident="@incident"></IncidentRow>
-                    }
-                }
-                else
-                {
-                    <tr>
-                        <td colspan="7"> <p class="loading-p"> Loading...</p></td>
-                    </tr>
-                }
-        
-        </tbody>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-nowrap" scope="col">Title</th>
+                            <th class="text-nowrap" scope="col">Description</th>
+                            <th class="text-nowrap" scope="col">Assigned TO</th>
+                            <th class="text-nowrap" scope="col">Created By</th>
+                            <th class="text-nowrap" scope="col">Created Date</th>
+                            <th class="text-nowrap" scope="col">Due Date</th>
+                            <th class="text-nowrap" scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (incidents != null)
+                        {
+                            @foreach (Incident incident in incidents)
+                            {
+                                <IncidentRow incident="@incident"></IncidentRow>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="7"> <p class="loading-p"> Loading...</p></td>
+                            </tr>
+                        }
 
-    </table>
-</div>
-    <Pagination pageNumber="@pageNumber" pageSize="@pageSize" totalRecords="@totalRecords" pageSizeOrNumberChanged="ReloadIncidents"></Pagination>
+                    </tbody>
+
+                </table>
+            </div>
+
+            <Pagination pageNumber="@pageNumber" pageSize="@pageSize" totalRecords="@totalRecords" pageSizeOrNumberChanged="ReloadIncidents"></Pagination>
+
+        </div>
+    </div>
 
 </div>
 
 @code {
-    
+
     List<Incident> incidents;
     int totalRecords;
     int pageNumber = 1;
@@ -73,7 +80,7 @@
     string searchTxt = "";
 
     protected override async Task OnInitializedAsync()
-    {       
+    {
     }
 
     private async Task ReloadIncidents(dynamic pageInfo)
@@ -86,7 +93,7 @@
     }
 
     private async Task SearchTextChanged()
-    {          
+    {
         await GetIncidents(pageSize, pageNumber, searchTxt);
     }
 
@@ -100,12 +107,12 @@
 
     private async Task GetIncidents(int pageSize, int pageNumber, string search)
     {
-        string token = await localStorage.GetItemAsync<string>("token");     
+        string token = await localStorage.GetItemAsync<string>("token");
         var incidentPages = await IncidentService.GetIncidentsWithPage(token, pageSize, pageNumber, search);
         incidents = incidentPages.Incidents;
         totalRecords = incidentPages.Total_Incidents;
         StateHasChanged();
     }
 
-     
+
 }
