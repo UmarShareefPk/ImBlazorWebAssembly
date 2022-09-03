@@ -63,7 +63,7 @@
 /***** Notifications *************/
 
 .notification-container{
-    max-height:80vh;
+    max-height:60vh;
     overflow-y:auto;
     min-width:30vw;
 }
@@ -71,14 +71,14 @@
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding: 18px 10px;
+    padding: 20px 10px;
     border-bottom: solid 1px black;
 }
 .notification-div.read {
 }
     .notification-div.unread {
         /* background-color:rgba(12,0,106,1); #fafad2*/
-        background-color: lightcyan;
+        background-color: #ece9e9;
     }
 
 .notification-div .notification-text-div {

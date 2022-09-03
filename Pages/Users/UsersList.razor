@@ -4,54 +4,58 @@
 <div class="container px-8">
     <br />
     <div class="report-title">Users</div>
-    <br />
 
-    <input type="text" @bind="searchTxt"   class="line-textbox w-25" placeholder="Enter first or last name and hit Search" />
-        <button class="btn btn-outline-success search-btn" @onclick="SearchTextChanged"> 
-        <div>
-               <i class="material-icons">search</i>
-               <span> Search </span>
-       </div>
-    </button>
-    <br />
-    <br />
+    <div class="card">
+        <div class="card-body">
+            <input type="text" @bind="searchTxt" class="line-textbox w-25" placeholder="Enter first or last name and hit Search" />
+            <button class="btn btn-outline-success search-btn" @onclick="SearchTextChanged">
+                <div>
+                    <i class="material-icons">search</i>
+                    <span> Search </span>
+                </div>
+            </button>
+        </div>
+    </div>
 
-<div class="table-responsive">
-    <table class="table">
-        <thead>
-            <tr>
-                <th class="text-nowrap" scope="col">First Name</th>
-                <th class="text-nowrap" scope="col">Last Name</th>
-                <th class="text-nowrap" scope="col">Email</th>
-                <th class="text-nowrap" scope="col">Created Date</th>              
-            </tr>
-        </thead>
-        <tbody>
-                @if (users != null)
-                {
-                    @foreach (User user in users)
-                    {
-                        <UsersListRow user="@user"></UsersListRow>
-                    }
-                }
-                else
-                {
-                    <tr>
-                        <td colspan="4"> <p class="loading-p"> Loading...</p></td>
-                    </tr>
-                     
-                }
-        
-        </tbody>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-nowrap" scope="col">First Name</th>
+                            <th class="text-nowrap" scope="col">Last Name</th>
+                            <th class="text-nowrap" scope="col">Email</th>
+                            <th class="text-nowrap" scope="col">Created Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (users != null)
+                        {
+                            @foreach (User user in users)
+                            {
+                                <UsersListRow user="@user"></UsersListRow>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="4"> <p class="loading-p"> Loading...</p></td>
+                            </tr>
 
-    </table>
-</div>
-    <Pagination pageNumber="@pageNumber" pageSize="@pageSize" totalRecords="@totalRecords" pageSizeOrNumberChanged="ReloadUsers"></Pagination>
+                        }
 
+                    </tbody>
+
+                </table>
+            </div>
+            <Pagination pageNumber="@pageNumber" pageSize="@pageSize" totalRecords="@totalRecords" pageSizeOrNumberChanged="ReloadUsers"></Pagination>
+        </div>
+    </div>
 </div>
 
 @code {
-        
+
     List<User> users;
     int totalRecords;
     int pageNumber = 1;
@@ -64,12 +68,12 @@
         pageSize = pageInfo.pSize;
         pageNumber = pageInfo.pNumber;
         await GetUsers(pageSize, pageNumber, searchTxt);
-       
+
     }
 
     private async Task SearchTextChanged()
-    {          
-        await GetUsers(pageSize, pageNumber, searchTxt);        
+    {
+        await GetUsers(pageSize, pageNumber, searchTxt);
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -77,7 +81,7 @@
         if (firstRender)
         {
             await GetUsers(5, 1, "");
-          
+
         }
     }
 
@@ -88,8 +92,8 @@
 
         users = userPages.Users;
         totalRecords = userPages.Total_Users;
-          StateHasChanged();
+        StateHasChanged();
     }
 
-     
+
 }

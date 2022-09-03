@@ -66,7 +66,7 @@
 
 .incident-createTime {
     font-size: small;
-    background-color:white;
+   /* background-color:white;*/
     color: gray;
     text-align:right;
 }
@@ -208,7 +208,8 @@ field-table tr
 }
 .comment-source .creator {
     color: #007bff;
-    font-size:medium;
+    font-size:small;
+    font-weight:bold;
 }
 
 .comment-source .info-text {
@@ -217,11 +218,11 @@ field-table tr
 }
 
 .comment-source .time-stamp {  
-    font-size: medium;
+    font-size: small;
 }
 
 .comment-actions i{
-    margin-left:3px;
+    margin-left:0px;
     cursor:pointer;
     font-size:large;
 }

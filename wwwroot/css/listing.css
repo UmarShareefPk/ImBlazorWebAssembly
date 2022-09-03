@@ -1,9 +1,11 @@
 ﻿.page-actions {
     display:flex;
     justify-content:space-between;
+  
 }
-.search-div{
-    min-width:50%;
+.search-div {
+    min-width: 50%;
+    font-size: xx-small;
 }
 
 .search-btn div {
