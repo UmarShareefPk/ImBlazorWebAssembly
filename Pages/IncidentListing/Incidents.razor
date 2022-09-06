@@ -25,7 +25,7 @@
                     Add New
                 </button>
             </div>
-            <NewIncident></NewIncident>
+            <NewIncident incidentAdded="@newIncidentAdded"></NewIncident>
         </div>
     </div>
 
@@ -64,8 +64,11 @@
                 </table>
             </div>
 
-            <Pagination pageNumber="@pageNumber" pageSize="@pageSize" totalRecords="@totalRecords" pageSizeOrNumberChanged="ReloadIncidents"></Pagination>
+            <div class="card-footer ">
+                <Pagination pageNumber="@pageNumber" pageSize="@pageSize" totalRecords="@totalRecords" pageSizeOrNumberChanged="ReloadIncidents"></Pagination>
 
+            </div>
+            
         </div>
     </div>
 
@@ -112,6 +115,11 @@
         incidents = incidentPages.Incidents;
         totalRecords = incidentPages.Total_Incidents;
         StateHasChanged();
+    }
+
+    private async Task newIncidentAdded(bool isAdded)
+    {
+        await GetIncidents(5, 1, "");
     }
 
 

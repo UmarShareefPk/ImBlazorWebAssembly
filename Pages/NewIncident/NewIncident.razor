@@ -51,8 +51,7 @@
                     <textarea class="line-textbox w-100" @bind="additionalDetails" oninput="auto_grow(event);" placeholder="Type additional details">
                 </textarea>
                 </div>
-            </div>
-           
+            </div>          
 
             <div class="field">
                 <div class="field-tile"> Attachments</div>
@@ -66,73 +65,41 @@
                     </div>
                 </div>
             </div>
-            <table class="table d-none">
-                <tr>
-                    <td colspan="1" class="field-tile"> Title <span class="text-danger">*</span></td>
-                    <td colspan="6">  </td>
-                </tr>
-                <tr>
-                    <td colspan="1" class="field-tile"> Assignee <span class="text-danger">*</span></td>
-                    <td colspan="6"> <AssigneeDropdown selectedAssignee="@assigneeId" assigneeChanged="@assigneeHasChanged"></AssigneeDropdown> </td>
-                </tr>
-                <tr>
-                    <td colspan="1" class="field-tile"> Description <span class="text-danger">*</span></td>
-                    <td colspan="6">
-                        <textarea class="line-textbox w-100" @bind="descryption" oninput="auto_grow(event);" placeholder="Type descryption">
-                </textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="1" class="field-tile"> Additional Details</td>
-                    <td colspan="6">
-                        <textarea class="line-textbox w-100" @bind="additionalDetails" oninput="auto_grow(event);" placeholder="Type additional details">
-                </textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="1" class="field-tile"> Start Time <span class="text-danger">*</span></td>
-                    <td colspan="6"> <RadzenDatePicker ShowTime="true" @bind-Value="startTime" Change=@startTimeChange /> </td>
-                </tr>
-                <tr>
-                    <td colspan="1" class="field-tile"> Due Date <span class="text-danger">*</span></td>
-                    <td colspan="6">  <RadzenDatePicker Min="@DateTime.Now" ShowTime="true" @bind-Value="dueDate" Change=@dueDateChange /></td>
-                </tr>
-                <tr>
-                    <td colspan="1" class="field-tile attachment"> Attachments</td>
-                    <td colspan="6">
-                        <div class="file-upload-container">
-                            <div class="file-upload-wrapper">
-                                <button class="btn"><i class="material-icons">attachment</i></button>
-                                <span id="incidentFileuploadInfo">Click here to upload files</span>
-                            </div>
-                            <input type="file" id="newIncidentFiles" onchange="fileuploadChanged(this,'incidentFileuploadInfo');" multiple />
-                        </div>
-                    </td>
-                </tr>
-                <tr class="@(showError? "" : "d-none")">
-                    <td colspan="7">
-                        <span class="text-danger"> Please fill all required fields</span>
-                    </td>
-                </tr>
-
-            </table>
+                <div class="@(error != "" ? "field" : "d-none")">
+                    <span class="text-danger"> @error </span>
+                </div>
+          
         </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" @onclick="saveIncident" >Save changes</button>
+        <button type="button" class="btn btn-warning text-white" data-dismiss="modal">
+           <div class="d-flex">
+                <i class="material-icons mr-1"> cancel </i>
+                <span> Cancel </span>
+          </div>
+        </button>
+        <button type="button" class="btn btn-primary" @onclick="saveIncident" >
+          <div class="d-flex">
+            <i class="material-icons mr-1"> save </i>
+            <span> Save </span>
+          </div>
+        </button>
       </div>
     </div>
   </div>
 </div>
 
 @code {
+
+    [Parameter]
+    public EventCallback<bool> incidentAdded { get; set; }
+
     private string title = "";
     private string descryption = "";
     private string additionalDetails = "";
     private string assigneeId = "";
     private DateTime startTime = DateTime.Now;
     private DateTime dueDate = DateTime.Now;
-    bool showError = false;
+    string error = "";
 
     private async Task assigneeHasChanged(string userId)
     {
@@ -149,7 +116,40 @@
     async Task saveIncident()
     {
         if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(assigneeId) || string.IsNullOrEmpty(descryption))
-            showError = true;
+            error = "Please fill all required fields";
+
+        else if (startTime > dueDate)
+            error = "Start time cannot be greater than Due Date";
+        else if (dueDate < DateTime.Now)
+            error = "Due Date should be in future.";
+        else
+            error = "";
+
+        var fields = new
+        {
+            Title = title,
+            descryption = descryption,
+            additionalDetails = additionalDetails,
+            assigneeId = assigneeId,
+            startTime = startTime,
+            dueDate = dueDate,
+            files = "newIncidentFiles",
+        };
+
+        string userId = await UserService.GetLoggedInUserId();
+        var newIncident=  await JS.InvokeAsync<object>("addIncident", IncidentService.GetBaseUrl() , fields);
+        if(newIncident is not null)
+        {
+            // var json = ((JsonElement)newComment).GetRawText();
+            // var comment = JsonSerializer.Deserialize<Comment>(json);
+            title = "";
+            descryption = "";
+            additionalDetails = "";
+
+
+            await incidentAdded.InvokeAsync(true);
+        }
+
     }
 
 }

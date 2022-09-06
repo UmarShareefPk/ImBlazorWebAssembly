@@ -9,7 +9,11 @@
     <div class="card">
         <div class="card-body">
             <h5> Overall</h5>
-            <div id="overallChart"> </div>
+            @if (newValue == "0")
+            {
+                <p class="loading-p"> Loading...</p>
+            }
+            <div id="overallChart" class="@(newValue == "0"? "hide" :"" )"> </div>
         </div>
     </div>
 </div>

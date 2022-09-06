@@ -1,4 +1,14 @@
 ﻿/**************************** Dashboard *****************************/
+:root {
+    --new-bg-color: radial-gradient(circle, rgba(222,184,68,1) 38%, rgba(250,196,19,1) 100%);
+    --inprogress-bg-color: radial-gradient(circle, rgba(113,166,247,1) 0%, rgba(48,128,204,1) 100%);
+    --closed-bg-color: radial-gradient(circle, rgba(66,194,56,1) 39%, rgba(113,200,120,1) 100%);
+    --approved-bg-color: radial-gradient(circle, rgba(12,99,5,1) 0%, rgba(14,131,22,1) 100%);
+    --late-bg-color: radial-gradient(circle, rgba(218,30,28,1) 0%, rgba(131,55,14,1) 100%);
+    --assignedToMe-bg-color: radial-gradient(circle, rgba(28,55,218,1) 0%, rgba(17,24,112,1) 100%); 
+}
+
+
 
 .card {
     background: #ffffff;
@@ -75,26 +85,27 @@
     border-radius: 7px
 }
 
+
+
+
 .incident .status.new {
-    /*  background-color: #ecc909;*/
-    background: rgb(183,28,28);
-    background: linear-gradient(90deg, rgba(245,124,0,1) 40%, rgba(255,226,0,1) 100%);
+    background: var( --new-bg-color);
 }
 
 .incident .status.inprogress {
-    background: rgb(183,28,28);
-    background: linear-gradient(90deg, rgba(25,118,210,1) 40%, rgba(0,237,255,1) 100%);
+    background: var(--inprogress-bg-color);
 }
 
 .incident .status.closed {
-    bbackground: rgb(183,28,28);
-    background: linear-gradient(90deg, rgba(67,160,71,1) 40%, rgba(0,255,187,1) 100%);
+    background: var(--closed-bg-color);
 }
 
 .incident .status.approved {
-    background: rgb(183,28,28);
-    background: linear-gradient(90deg, rgba(27,94,32,1) 40%, rgba(19,255,0,1) 100%);
+    background: var(--approved-bg-color);
 }
+
+
+
 
 .incident .title {
     display: inline-block;
@@ -177,34 +188,29 @@
 }
 
 .new-color {
-    background: rgb(183,28,28);
-    background: linear-gradient(90deg, rgba(245,124,0,1) 52%, rgba(255,226,0,1) 100%);
+    background: var( --new-bg-color);
 }
 
 .inprogress-color {
-    background: rgb(183,28,28);
-    background: linear-gradient(90deg, rgba(25,118,210,1) 70%, rgba(0,237,255,1) 100%);
+    background: var(--inprogress-bg-color);
 }
 
 .closed-color {
-    background: rgb(183,28,28);
-    background: linear-gradient(90deg, rgba(67,160,71,1) 52%, rgba(0,255,187,1) 100%);
+    background: var(--closed-bg-color);
 }
 
 .approved-color {
-    background: rgb(183,28,28);
-    background: linear-gradient(90deg, rgba(27,94,32,1) 52%, rgba(19,255,0,1) 100%);
+    background: var(--approved-bg-color);
 }
 
 .late-color {
-    background: rgb(183,28,28);
-    background: linear-gradient(90deg, rgba(183,28,28,1) 52%, rgba(255,140,0,1) 100%);
+    background: var(--late-bg-color);
 }
 
 .assignedToMe-color {
-    background: rgb(26,35,126);
-    background: linear-gradient(90deg, rgba(26,35,126,1) 63%, rgba(0,194,255,1) 100%);
+    background: var(--assignedToMe-bg-color);
 }
+
 
 
 

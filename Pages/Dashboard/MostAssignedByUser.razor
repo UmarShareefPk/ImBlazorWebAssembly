@@ -2,13 +2,17 @@
     <div class="card">
           <div class="card-body">
             <h5> Most Assigned To Users </h5>
-
-            <div id="mostAssignedtoUsersChart"></div>
+             @if (!dataAvailable)
+            {
+                <p class="loading-p"> Loading...</p>
+            }
+            <div id="mostAssignedtoUsersChart" class="@(dataAvailable ? "" :"hide" )"> </div>           
     </div>
     </div>
 </div>
 
 @code {
+    bool dataAvailable = false;
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if(firstRender)
@@ -19,6 +23,7 @@
             if(mostassignedtoUsersData is not null)
             {
                 string response = new(await JS.InvokeAsync<string>("drawMostAssignedToUserChart", mostassignedtoUsersData));
+                dataAvailable = true;
             }
             StateHasChanged();
         }
