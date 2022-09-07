@@ -71,7 +71,7 @@
           
         </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-warning text-white" data-dismiss="modal">
+        <button type="button" id="cancelIncidentBtn" class="btn btn-warning text-white" data-dismiss="modal">
            <div class="d-flex">
                 <i class="material-icons mr-1"> cancel </i>
                 <span> Cancel </span>
@@ -123,31 +123,31 @@
         else if (dueDate < DateTime.Now)
             error = "Due Date should be in future.";
         else
+        {
             error = "";
 
-        var fields = new
-        {
-            Title = title,
-            descryption = descryption,
-            additionalDetails = additionalDetails,
-            assigneeId = assigneeId,
-            startTime = startTime,
-            dueDate = dueDate,
-            files = "newIncidentFiles",
-        };
+            string userId = await UserService.GetLoggedInUserId();
+            var fields = new
+            {
+                userId = userId,
+                title = title,
+                description = descryption,
+                additionalDetails = additionalDetails,
+                assignee = assigneeId,
+                startTime = startTime,
+                dueDate = dueDate,
+                files = "newIncidentFiles",
+            };
 
-        string userId = await UserService.GetLoggedInUserId();
-        var newIncident=  await JS.InvokeAsync<object>("addIncident", IncidentService.GetBaseUrl() , fields);
-        if(newIncident is not null)
-        {
-            // var json = ((JsonElement)newComment).GetRawText();
-            // var comment = JsonSerializer.Deserialize<Comment>(json);
-            title = "";
-            descryption = "";
-            additionalDetails = "";
-
-
-            await incidentAdded.InvokeAsync(true);
+           
+            var newIncidentAdded = await JS.InvokeAsync<bool>("addIncident", IncidentService.GetBaseUrl(), fields);
+            if (newIncidentAdded)
+            {
+                title = "";
+                descryption = "";
+                additionalDetails = "";
+                await incidentAdded.InvokeAsync(true);
+            }
         }
 
     }

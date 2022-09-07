@@ -117,53 +117,31 @@ window.drawOverallChart = (data) => {
 }
 
 window.drawMostAssignedToUserChart = (data) => {
-  //  console.log(data);
-   
+  //  console.log(data); rgba(32,96,26,1) 0%, 
+
+    let bgColor = {
+        radialGradient: [0, 0, 0, 300],
+        stops: [
+            [0, 'rgba(32,96,26,1)'],
+            [1, 'rgba(6,40,5,1)']
+        ]
+    };
+
     data = [       
         {
-            name: data[0].Name, y: parseInt(data[0].Count), color: {
-                radialGradient: [0, 0, 0, 300],
-                stops: [
-                    [0, 'rgba(210,128,255,1)'],
-                    [1, 'rgba(141,46,194,1)']
-                ]
-            }
+            name: data[0].Name, y: parseInt(data[0].Count), color: bgColor
         },
         {
-            name: data[1].Name, y: parseInt(data[1].Count), color: {
-                radialGradient: [0, 0, 0, 300],
-                stops: [
-                    [0, 'rgba(210,128,255,1)'],
-                    [1, 'rgba(141,46,194,1)']
-                ]
-            }
+            name: data[1].Name, y: parseInt(data[1].Count), color: bgColor
         },
         {
-            name: data[2].Name, y: parseInt(data[2].Count), color: {
-                radialGradient: [0, 0, 0, 300],
-                stops: [
-                    [0, 'rgba(210,128,255,1)'],
-                    [1, 'rgba(141,46,194,1)']
-                ]
-            }
+            name: data[2].Name, y: parseInt(data[2].Count), color: bgColor
         },
         {
-            name: data[3].Name, y: parseInt(data[3].Count), color: {
-                radialGradient: [0, 0, 0, 300],
-                stops: [
-                    [0, 'rgba(210,128,255,1)'],
-                    [1, 'rgba(141,46,194,1)']
-                ]
-            }
+            name: data[3].Name, y: parseInt(data[3].Count), color: bgColor
         },
         {
-            name: data[4].Name, y: parseInt(data[4].Count), color: {
-                radialGradient: [0, 0, 0, 300],
-                stops: [
-                    [0, 'rgba(210,128,255,1)'],
-                    [1, 'rgba(141,46,194,1)']
-                ]
-            }
+            name: data[4].Name, y: parseInt(data[4].Count), color: bgColor
         }
     ];
 
@@ -237,42 +215,48 @@ window.downloadCommentFile = (baseUrl, incidentId, file) => {
     return "Ok";
 }
 
-window.addIncident = async (baseUrl, fields) => {
+window.addIncident = async (baseUrl, fields) => {  
+ 
 
     let files = $("#" + fields.files).prop('files');
     console.log(fields);
     console.log(files);
     
-    //const formData = new FormData();
+    const formData = new FormData();
 
-    //if (files) {
-    //    for (let i = 0; i < files.length; i++) {
-    //        formData.append(
-    //            "Attachment" + i + 1,
-    //            files[i],
-    //            files[i].name
-    //        );
-    //    }
-    //}
-    //formData.append("CommentText", commentText.trim());
-    //formData.append("IncidentId", incidentId);
-    //formData.append("UserId", userId);
+    if (files) {
+        for (let i = 0; i < files.length; i++) {
+            formData.append(
+                "Attachment" + i + 1,
+                files[i],
+                files[i].name
+            );
+        }
+    }
+    formData.append("CreatedBy", fields.userId);
+    formData.append("AssignedTo", fields.assignee);
+    formData.append("Title", fields.title);
+    formData.append("Description", fields.description);
+    formData.append("AdditionalDeta", fields.additionalDetails);
+    formData.append("StartTime", fields.startTime);
+    formData.append("DueDate", fields.dueDate);
+    formData.append("Status", "N"); 
 
-    //let url = baseUrl + "/Incidents/AddComment";
+    let url = baseUrl + "/Incidents/AddIncident";
 
-    //let res = await fetch(url, {
-    //    method: 'post',
-    //    headers: new Headers({ 'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem("token")) }),
-    //    body: formData,
-    //})
-    //    .then(res => res.json()).then(res => {
-    //        $("#" + commentFilesId).val(null);
-    //        $("#" + commentFilesId).replaceWith($("#" + commentFilesId).clone(true));
-    //        $("#commentFileuploadInfo").html("Click here to upload files");
-    //        return res;
-    //    }).catch(err => console.log(err));
-
-    return res;
+    let res = await fetch(url, {
+        method: 'post',
+        headers: new Headers({ 'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem("token")) }),
+        body: formData,
+    })
+        .then(res => {
+            $("#" + fields.files).val(null);
+            $("#" + fields.files).replaceWith($("#" + fields.files).clone(true));
+            $("#incidentFileuploadInfo").html("Click here to upload files");
+            $('#exampleModalCenter').modal('hide');
+            return true;
+        }).catch(err => console.log(err));
+    return true;
 }
 
 window.addComment = async (baseUrl,commentText, commentFilesId, incidentId, userId) => {

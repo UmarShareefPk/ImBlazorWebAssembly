@@ -21,8 +21,7 @@
 
 .login-logo {
     height: 100vh;
-    background: rgb(117,32,112);
-    background: linear-gradient(0deg, rgba(117,32,112,1) 0%, rgba(12,0,106,1) 88%);
+    background: radial-gradient(circle, rgba(19,27,111,1) 0%, rgba(0,0,0,1) 100%);
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -1,8 +1,7 @@
 ﻿/* ***********************   Nav ***************************/
 
 .navbar {
-    background: rgb(117,32,112);
-    background: linear-gradient(0deg, rgba(117,32,112,1) 10%, rgba(12,0,106,1) 60%);
+    background: radial-gradient(circle, rgba(19,27,111,1) 0%, rgba(0,0,0,1) 100%);
     /* padding: 10px 30vw*/
 }
 
