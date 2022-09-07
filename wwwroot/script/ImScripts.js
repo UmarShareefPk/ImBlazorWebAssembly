@@ -18,7 +18,7 @@ window.auto_grow = (event) => {
 
 window.clickTest = (e) => {
     console.log(e);
-    event.stopPropagation();
+    event.stopPropagation(); 
     return "yes";
    // DotNet.invokeMethodAsync('ImBlazorWebAssembly', 'callMeFromJS');
 }
