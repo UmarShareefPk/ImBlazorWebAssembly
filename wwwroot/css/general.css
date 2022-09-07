@@ -92,6 +92,11 @@ textarea.small {
    
     opacity:0;
 }
+
+.page-container ul.pagination {
+    margin-bottom: 0px !important;
+}
+
 /******* Calender************/
 .rz-datepicker-calendar
 /* Small devices  */

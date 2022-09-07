@@ -120,10 +120,10 @@ window.drawMostAssignedToUserChart = (data) => {
   //  console.log(data); rgba(32,96,26,1) 0%, 
 
     let bgColor = {
-        radialGradient: [0, 0, 0, 300],
+        linearGradient: [0, 0, 0, 300],
         stops: [
-            [0, 'rgba(32,96,26,1)'],
-            [1, 'rgba(6,40,5,1)']
+            [0, 'rgba(6,131,181,1)'], 
+            [1, 'rgba(7,65,105,1)']                                 
         ]
     };
 
